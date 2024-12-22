@@ -1,0 +1,20 @@
+## GET available years
+
+
+http://localhost:8888/api/currencies/2 HTTP/1.1
+
+
+###
+
+http://localhost:8888/login
+
+###
+
+POST http://localhost:8888/api/currencies HTTP/1.1
+content-type: application/json
+
+{
+    "name": "sample",
+    "symbol": ":P"
+}
+
