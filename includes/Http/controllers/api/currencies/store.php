@@ -6,30 +6,36 @@ use Http\Validator\Validator;
 
 header('Content-Type: application/json');
 
-$json = file_get_contents('php://input');
-$data = json_decode($json, true);
+// $json = file_get_contents('php://input');
+// $data = json_decode($json, true);
 
 $rules = require base_path("Http/Validator/rules/Currency.php");
-$validator = new Validator($data, $rules);
+$validator = new Validator($_POST, $rules);
+
+// $validator = new Validator($data, $rules);
 
 if(!$validator->validate()) {
     echo json_encode($validator->getErrors()); 
     exit();
 }
 
+if (isset($_FILES["image"])) {
+    $filename = handleUploadImage("image", $validator);
+    if (!$filename) {
+        http_response_code(400);
+        echo json_encode(["errors" => $validator->getErrors()]);
+        exit();
+    }
+} 
+
 $db = App::resolve(Database::class);
-$success = $db->query("INSERT INTO currency(name, code, symbol) VALUES(:name, :code, :symbol)", [
-    "name" => $data["name"],
-    "code" => $data["code"], 
-    "symbol" => $data["symbol"]
+$db->query("INSERT INTO currency(name, symbol, image) VALUES(:name, :symbol, :image)", [
+    "name" => $_POST["name"],
+    "symbol" => $_POST["symbol"],
+    "image" => $filename,
 ]);
 
-if(!$success) {
-    http_response_code(500);
-    echo json_encode(["error" => "hubo un error al intentar guardar en la base de datos"]); 
-    exit();
-}
 
 http_response_code(200);
-echo json_encode($data);
+echo json_encode(["message" => "Moneda registrada con exito"]);
 exit();

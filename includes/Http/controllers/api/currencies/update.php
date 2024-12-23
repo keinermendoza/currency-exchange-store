@@ -37,11 +37,7 @@ if (isset($_FILES["image"])) {
         echo json_encode(["errors" => $validator->getErrors()]);
         exit();
     }
-} else {
-    http_response_code(400);
-    echo json_encode(["errors" => "no hay imagen"]);
-    exit();
-}
+} 
 
 // AQUI
 $db->query("UPDATE currency SET name = :name, symbol = :symbol, image = :image WHERE id = :id", [

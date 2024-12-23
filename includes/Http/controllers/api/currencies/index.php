@@ -13,6 +13,12 @@ use Core\Authenticator;
 $db = App::resolve(Database::class);
 $currencies = $db->query("SELECT * FROM currency")->fetchAll();
 
+array_walk($currencies, function(&$currency) {
+    if (isset($currency["image"])) {
+        $currency["image"] = "/" . $currency["image"];
+    }
+}); 
+
 header('Content-Type: application/json');
 http_response_code(200);
 echo json_encode($currencies);
