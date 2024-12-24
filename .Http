@@ -3,6 +3,14 @@
 
 http://localhost:8888/api/currencies/2 HTTP/1.1
 
+###
+
+http://localhost:8888/api/exchangerates HTTP/1.1
+
+###
+
+http://localhost:8888/api/exchangerates/1 HTTP/1.1
+
 
 ###
 
