@@ -1,5 +1,7 @@
 ## GET available years
+http://localhost:8888/api/currencies
 
+###
 
 http://localhost:8888/api/currencies/2 HTTP/1.1
 

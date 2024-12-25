@@ -38,6 +38,7 @@ $router->put("/api/currencies/[i:id]", "api/currencies/update.php");
 $router->post("/api/currencies", "api/currencies/store.php");
 $router->get("/api/exchangerates", "api/exchangerates/index.php");
 $router->get("/api/exchangerates/[i:id]", "api/exchangerates/show.php");
+$router->post("/api/exchangerates", "api/exchangerates/store.php");
 
 
 
