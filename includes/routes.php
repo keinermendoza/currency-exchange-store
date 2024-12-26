@@ -30,15 +30,21 @@ $router->post("/login", "session/store.php", permission: GUEST);
 $router->delete("/logout", "session/destroy.php", permission: ADMIN);
 
 $router->get("/admin[*]", "admin.php", permission: ADMIN);
+
 $router->get("/api/currencies", "api/currencies/index.php");
+$router->post("/api/currencies", "api/currencies/store.php");
 $router->get("/api/currencies/[i:id]", "api/currencies/show.php");
 $router->put("/api/currencies/[i:id]", "api/currencies/update.php");
+$router->delete("/api/currencies/[i:id]", "api/currencies/destroy.php");
 
 
-$router->post("/api/currencies", "api/currencies/store.php");
 $router->get("/api/exchangerates", "api/exchangerates/index.php");
-$router->get("/api/exchangerates/[i:id]", "api/exchangerates/show.php");
 $router->post("/api/exchangerates", "api/exchangerates/store.php");
+$router->get("/api/exchangerates/[i:id]", "api/exchangerates/show.php");
+$router->put("/api/exchangerates/[i:id]", "api/exchangerates/update.php");
+$router->delete("/api/exchangerates/[i:id]", "api/exchangerates/destroy.php");
+
+
 
 
 
