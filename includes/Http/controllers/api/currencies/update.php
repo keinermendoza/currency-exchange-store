@@ -4,8 +4,6 @@ use Core\App;
 use Core\Database;
 use Http\Validator\Validator;
 
-// $type = $_SERVER['CONTENT_TYPE'];
-
 header('Content-Type: application/json');
 
 $id = $params["id"];
@@ -39,7 +37,6 @@ if (isset($_FILES["image"])) {
     }
 } 
 
-// AQUI
 $db->query("UPDATE currency SET name = :name, symbol = :symbol, image = :image WHERE id = :id", [
     "name" => $_POST["name"],
     "symbol" => $_POST["symbol"],
@@ -47,9 +44,6 @@ $db->query("UPDATE currency SET name = :name, symbol = :symbol, image = :image W
     "id" => $id
 ]);
 
-// echo json_encode(["message" => "suerte"]);
-// $db = App::resolve(Database::class);
-// 
 echo json_encode(["message" => "Moneda actualizada con exito"]);
 http_response_code(200);
 exit();

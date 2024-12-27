@@ -6,16 +6,12 @@ use Http\Validator\Validator;
 
 header('Content-Type: application/json');
 
-// $json = file_get_contents('php://input');
-// $data = json_decode($json, true);
-
 $rules = require base_path("Http/Validator/rules/Currency.php");
 $validator = new Validator($_POST, $rules);
 
-// $validator = new Validator($data, $rules);
-
 if(!$validator->validate()) {
-    echo json_encode($validator->getErrors()); 
+    http_response_code(400);
+    echo json_encode(["errors" => $validator->getErrors()]); 
     exit();
 }
 
