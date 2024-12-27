@@ -1,3 +1,19 @@
+
+## GET info_site
+http://localhost:8888/api/infosite
+
+### POST new site
+
+POST http://localhost:8888/api/infosite HTTP/1.1
+content-type: application/json
+
+{
+    "domain": "https://algo.com",
+    "email": "algo@gmail.com",
+    "whatsapp_number": "65778543432"
+}
+
+
 ## GET available years
 http://localhost:8888/api/currencies
 

@@ -31,21 +31,31 @@ $router->delete("/logout", "session/destroy.php", permission: ADMIN);
 
 $router->get("/admin[*]", "admin.php", permission: ADMIN);
 
+// currencies
 $router->get("/api/currencies", "api/currencies/index.php");
 $router->post("/api/currencies", "api/currencies/store.php");
 $router->get("/api/currencies/[i:id]", "api/currencies/show.php");
 $router->put("/api/currencies/[i:id]", "api/currencies/update.php");
 $router->delete("/api/currencies/[i:id]", "api/currencies/destroy.php");
 
-
+// exchangerates
 $router->get("/api/exchangerates", "api/exchangerates/index.php");
 $router->post("/api/exchangerates", "api/exchangerates/store.php");
 $router->get("/api/exchangerates/[i:id]", "api/exchangerates/show.php");
 $router->put("/api/exchangerates/[i:id]", "api/exchangerates/update.php");
 $router->delete("/api/exchangerates/[i:id]", "api/exchangerates/destroy.php");
 
+// infosite
+$router->post("/api/infosite", "api/infosite/store.php");
+$router->get("/api/infosite", "api/infosite/show.php");
+$router->put("/api/infosite", "api/infosite/update.php");
+$router->delete("/api/infosite", "api/infosite/destroy.php");
 
-
+// socialaccounts
+$router->post("/api/socialaccounts", "api/socialaccounts/store.php");
+$router->get("/api/socialaccounts", "api/socialaccounts/show.php");
+$router->put("/api/socialaccounts", "api/socialaccounts/update.php");
+$router->delete("/api/socialaccounts", "api/socialaccounts/destroy.php");
 
 
 

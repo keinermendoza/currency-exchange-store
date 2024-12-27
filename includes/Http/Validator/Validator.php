@@ -53,6 +53,9 @@ class Validator {
         $this->errors[$field] = $message;    
     }
 
+    public function hasErrors() {
+        return !empty($this->errors);
+    }
     
 
 

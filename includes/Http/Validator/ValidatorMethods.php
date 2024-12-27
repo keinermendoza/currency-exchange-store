@@ -11,6 +11,10 @@ class ValidatorMethods {
         return filter_var($email, FILTER_VALIDATE_EMAIL);
     }
 
+    public static function url(string $url): bool | string {
+        return filter_var($url, FILTER_VALIDATE_URL);
+    }
+
     public static function min($strNumber, int |float $min): bool {
         $number = (float)$strNumber;
         return $number >= $min;
