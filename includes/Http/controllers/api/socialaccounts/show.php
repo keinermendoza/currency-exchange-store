@@ -5,21 +5,15 @@ use Core\Database;
 
 header('Content-Type: application/json');
 
-$id = $params["id"];
-
 $db = App::resolve(Database::class);
-$currency = $db->query("SELECT * FROM currency WHERE id = :id", [
-    "id" => $id
-])->fetch();
+$infosite = $db->query("SELECT * FROM social_accounts LIMIT 1")->fetch();
 
-if(!$currency) {
+if(!$infosite) {
     http_response_code(404);
-    echo json_encode(["errors" => "Moneda no encontrada"]);
+    echo json_encode(["errors" => "no hay datos registrados"]);
     exit();
 }
 
-if(isset($currency["image"])) $currency["image"] = "/".$currency["image"];
-
 http_response_code(200);
-echo json_encode($currency);
+echo json_encode($infosite);
 exit();

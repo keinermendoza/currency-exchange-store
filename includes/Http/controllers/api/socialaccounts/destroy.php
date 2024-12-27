@@ -5,23 +5,20 @@ use Core\Database;
 
 header('Content-Type: application/json');
 
-$id = $params["id"];
 $db = App::resolve(Database::class);
-$exchange = $db->query("SELECT * FROM currency WHERE id = :id", [
-    "id" => $id
-])->fetch();
+$infosite = $db->query("SELECT * FROM social_accounts LIMIT 1")->fetch();
 
-if(!$exchange) {
+if(!$infosite) {
     http_response_code(404);
-    echo json_encode(["errors" => ["Moneda no encontrada"]]);
+    echo json_encode(["errors" => "no hay datos registrados"]);
     exit();
 }
 
 
-$db->query("DELETE FROM currency WHERE id = :id", [
-    "id" => $id
+$db->query("DELETE FROM social_accounts WHERE id = :id", [
+    "id" => $infosite["id"]
 ]);
 
 http_response_code(200);
-echo json_encode(["message" => "Moneda eliminada con exito"]);
+echo json_encode(["message" => "sitio eliminado con exito"]);
 exit();
