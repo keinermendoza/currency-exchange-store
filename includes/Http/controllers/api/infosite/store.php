@@ -3,6 +3,8 @@ namespace Http;
 use Core\App;
 use Core\Database;
 use Http\Validator\Validator;
+use Http\Validator\OptionalValidator;
+
 
 header('Content-Type: application/json');
 
@@ -28,35 +30,38 @@ if(!$validator->validate()) {
     exit();
 }
 
-$phone = "";
-if (array_key_exists("phone_number", $data)){
-    if (mb_strlen($data["phone_number"]) <= 20) {
-        $phone = htmlspecialchars($data["phone_number"]);
-    } else {
-        $validator->addError("phone_number", "El numero de telefono no puede tener mas de 20 caracteres");
-    }
-}
+$optionalValidations = new OptionalValidator($data);
 
-$address = "";
-if (array_key_exists("phone_number", $data)){
-    if (mb_strlen($data["aaddress"]) <= 200) {
-        $address = htmlspecialchars($data["address"]);
-    } else {
-        $validator->addError("address", "La deireccionno puede tener mas de 200 letras");
-    }
-}
+$phone = $optionalValidations->validateOptionalField(
+    "phone_number",
+    fn($field) =>  mb_strlen($field) <= 20,
+    "El numero de telefono no puede tener mas de 20 digitos"
+);
 
-if ($validator->hasErrors()) {
+$email = $optionalValidations->validateOptionalField(
+    "email",
+    fn($field) => filter_var($field, FILTER_VALIDATE_EMAIL),
+    "Proporciona una direccion email validaaaaaa"
+);
+
+$address = $optionalValidations->validateOptionalField(
+    "address",
+    fn($field) =>  mb_strlen($field) <= 200,
+    "La deirección no puede tener mas de 200 letras"
+);
+
+
+if ($optionalValidations->hasErrors()) {
     http_response_code(400);
-    echo json_encode(["errors" => $validator->getErrors()]);
+    echo json_encode(["errors" => $optionalValidations->getErrors()]);
     exit();
 }
 
 $db->query("INSERT INTO info_site (domain, email, address, phone_number, whatsapp_number) VALUES (:domain, :email, :address, :phone_number, :whatsapp_number) ", [
     "domain" => $data["domain"],
-    "email" => $data["email"],
-    "address" => $data["address"] ?? null,
-    "phone_number" => $data["phone_number"] ?? null,
+    "email" => $email,
+    "address" => $address,
+    "phone_number" => $phone,
     "whatsapp_number" => $data["whatsapp_number"],
 ]);
 

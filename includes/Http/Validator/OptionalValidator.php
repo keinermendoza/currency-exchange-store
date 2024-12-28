@@ -10,13 +10,16 @@ class OptionalValidator {
 
     public function validateOptionalField(string $key, callable $test, string $errorMessage) {
         if (array_key_exists($key, $this->data)) {
-            if ($test($this->data[$key])) {
-                return htmlspecialchars($this->data[$key]);
-            } else {
-                $this->addError($key, $errorMessage);
-                return '';
+
+            if (trim($this->data[$key] != "")) {
+                if ($test($this->data[$key])) {
+                    return htmlspecialchars($this->data[$key]);
+                } else {
+                    $this->addError($key, $errorMessage);
+                }
             }
         }
+        return '';
     }
     
     public function getErrors() {

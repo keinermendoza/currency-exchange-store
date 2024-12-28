@@ -32,41 +32,32 @@ $router->delete("/logout", "session/destroy.php", permission: ADMIN);
 $router->get("/admin[*]", "admin.php", permission: ADMIN);
 
 // currencies
-$router->get("/api/currencies", "api/currencies/index.php");
-$router->post("/api/currencies", "api/currencies/store.php");
-$router->get("/api/currencies/[i:id]", "api/currencies/show.php");
-$router->put("/api/currencies/[i:id]", "api/currencies/update.php");
-$router->delete("/api/currencies/[i:id]", "api/currencies/destroy.php");
+$router->get("/api/currencies", "api/currencies/index.php", permission: ADMIN);
+$router->post("/api/currencies", "api/currencies/store.php", permission: ADMIN);
+$router->get("/api/currencies/[i:id]", "api/currencies/show.php", permission: ADMIN);
+$router->put("/api/currencies/[i:id]", "api/currencies/update.php", permission: ADMIN);
+$router->delete("/api/currencies/[i:id]", "api/currencies/destroy.php", permission: ADMIN);
 
 // exchangerates
-$router->get("/api/exchangerates", "api/exchangerates/index.php");
-$router->post("/api/exchangerates", "api/exchangerates/store.php");
-$router->get("/api/exchangerates/[i:id]", "api/exchangerates/show.php");
-$router->put("/api/exchangerates/[i:id]", "api/exchangerates/update.php");
-$router->delete("/api/exchangerates/[i:id]", "api/exchangerates/destroy.php");
+$router->get("/api/exchangerates", "api/exchangerates/index.php", permission: ADMIN);
+$router->post("/api/exchangerates", "api/exchangerates/store.php", permission: ADMIN);
+$router->get("/api/exchangerates/[i:id]", "api/exchangerates/show.php", permission: ADMIN);
+$router->put("/api/exchangerates/[i:id]", "api/exchangerates/update.php", permission: ADMIN);
+$router->delete("/api/exchangerates/[i:id]", "api/exchangerates/destroy.php", permission: ADMIN);
 
 // infosite
-$router->post("/api/infosite", "api/infosite/store.php");
-$router->get("/api/infosite", "api/infosite/show.php");
-$router->put("/api/infosite", "api/infosite/update.php");
-$router->delete("/api/infosite", "api/infosite/destroy.php");
+$router->post("/api/infosite", "api/infosite/store.php", permission: ADMIN);
+$router->get("/api/infosite", "api/infosite/show.php", permission: ADMIN);
+$router->put("/api/infosite", "api/infosite/update.php", permission: ADMIN);
+$router->delete("/api/infosite", "api/infosite/destroy.php", permission: ADMIN);
 
 // socialaccounts
-$router->post("/api/socialaccounts", "api/socialaccounts/store.php");
-$router->get("/api/socialaccounts", "api/socialaccounts/show.php");
-$router->put("/api/socialaccounts", "api/socialaccounts/update.php");
-$router->delete("/api/socialaccounts", "api/socialaccounts/destroy.php");
-
-
-
+$router->post("/api/socialaccounts", "api/socialaccounts/store.php", permission: ADMIN);
+$router->get("/api/socialaccounts", "api/socialaccounts/show.php", permission: ADMIN);
+$router->put("/api/socialaccounts", "api/socialaccounts/update.php", permission: ADMIN);
+$router->delete("/api/socialaccounts", "api/socialaccounts/destroy.php", permission: ADMIN);
 
 return $router;
 
 
 
-// // map homepage
-// $router->map( 'GET', '', function() use ($router) {
-//     $nota = "me encataría agradecer a todos los que leen esto";
-//     $content =  __DIR__ . '/views/pages/home.php';
-//     require __DIR__ . '/views/base.php';
-// }, 'home');

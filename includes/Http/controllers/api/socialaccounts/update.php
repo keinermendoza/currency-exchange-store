@@ -74,7 +74,7 @@ if($validator->hasErrors()) {
 }
 
 
-$db->query("UPDATE info_site SET tiktok = :tiktok, instagram = :instagram, facebook = :facebook, twitter = :twitter, trheads = :trheads, youtube = :youtube  WHERE id = :id", [
+$db->query("UPDATE social_accounts SET tiktok = :tiktok, instagram = :instagram, facebook = :facebook, twitter = :twitter, trheads = :trheads, youtube = :youtube  WHERE id = :id", [
     "tiktok" => $tiktok,
     "instagram" => $instagram,
     "facebook" => $facebook,
