@@ -53,8 +53,8 @@ $twitter = $validator->validateOptionalField(
     $message
 );
 
-$trheads = $validator->validateOptionalField(
-    "trheads",
+$threads = $validator->validateOptionalField(
+    "threads",
     $testValidation,
     $message
 );
@@ -72,12 +72,12 @@ if($validator->hasErrors()) {
 }
 
 
-$db->query("INSERT INTO social_accounts (tiktok, instagram, facebook, twitter, trheads, youtube) VALUES (:tiktok, :instagram, :facebook, :twitter, :trheads, :youtube) ", [
+$db->query("INSERT INTO social_accounts (tiktok, instagram, facebook, twitter, threads, youtube) VALUES (:tiktok, :instagram, :facebook, :twitter, :threads, :youtube) ", [
 "tiktok" => $tiktok,
 "instagram" => $instagram,
 "facebook" => $facebook,
 "twitter" => $twitter,
-"trheads" => $trheads,
+"threads" => $threads,
 "youtube" => $youtube,
 ]);
 

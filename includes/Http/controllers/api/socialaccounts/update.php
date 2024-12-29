@@ -55,8 +55,8 @@ $twitter = $validator->validateOptionalField(
     $message
 );
 
-$trheads = $validator->validateOptionalField(
-    "trheads",
+$threads = $validator->validateOptionalField(
+    "threads",
     $testValidation,
     $message
 );
@@ -74,12 +74,12 @@ if($validator->hasErrors()) {
 }
 
 
-$db->query("UPDATE social_accounts SET tiktok = :tiktok, instagram = :instagram, facebook = :facebook, twitter = :twitter, trheads = :trheads, youtube = :youtube  WHERE id = :id", [
+$db->query("UPDATE social_accounts SET tiktok = :tiktok, instagram = :instagram, facebook = :facebook, twitter = :twitter, threads = :threads, youtube = :youtube  WHERE id = :id", [
     "tiktok" => $tiktok,
     "instagram" => $instagram,
     "facebook" => $facebook,
     "twitter" => $twitter,
-    "trheads" => $trheads,
+    "threads" => $threads,
     "youtube" => $youtube,
     "id" => $social["id"]
 ]);
