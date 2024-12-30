@@ -124,10 +124,7 @@ function transformDate(DateISO) {
         }
 
         fillReferenceData();
-        console.log(exchangeData)
-        console.log(preselectedExchange)
-
-
+ 
         // calculate 
         baseInput.oninput = () => {
             const value = Math.floor(selectedExchange.rate * parseFloat(baseInput.value) * 100) / 100;  

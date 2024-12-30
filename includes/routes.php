@@ -43,6 +43,7 @@ $router->get("/api/exchangerates", "api/exchangerates/index.php", permission: AD
 $router->post("/api/exchangerates", "api/exchangerates/store.php", permission: ADMIN);
 $router->get("/api/exchangerates/[i:id]", "api/exchangerates/show.php", permission: ADMIN);
 $router->put("/api/exchangerates/[i:id]", "api/exchangerates/update.php", permission: ADMIN);
+$router->put("/api/exchangerates/[i:id]/choice", "api/exchangerates/select.php", permission: ADMIN);
 $router->delete("/api/exchangerates/[i:id]", "api/exchangerates/destroy.php", permission: ADMIN);
 
 // infosite
