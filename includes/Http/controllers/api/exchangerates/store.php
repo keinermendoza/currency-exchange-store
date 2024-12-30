@@ -25,7 +25,7 @@ if ($data["base_currency"] === $data["target_currency"]) {
     exit();
 }
 
-$rate = bcdiv($data["base_amount"], $data["target_amount"], 6);
+$rate = bcdiv($data["target_amount"], $data["base_amount"], 6);
 
 $db = App::resolve(Database::class);
 

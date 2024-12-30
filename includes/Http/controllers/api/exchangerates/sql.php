@@ -3,6 +3,7 @@
 return "SELECT 
 exchangerate.id AS id,
 exchangerate.updated_at AS updated_at,
+is_default,
 base_amount,
 target_amount,
 rate,
