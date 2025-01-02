@@ -57,7 +57,7 @@
       </script> 
       <script type="module" src="http://localhost:5173/src/main.jsx"></script>   
       <?php else: ?>
-        <script type="module" src="/static/main.js"></script>
+        <script type="module" src="/static/vendor/main.js"></script>
       <?php endif; ?>
   </body>
 </html>

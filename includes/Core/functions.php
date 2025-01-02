@@ -60,7 +60,7 @@ function isDevMode() {
 }
 
 function getViteAssets(string $entryName): array {
-    $manifestPath = public_path("static/manifest.json"); 
+    $manifestPath = public_path("static/vendor/manifest.json"); 
 
     if (!file_exists($manifestPath)) {
         throw new Exception('Manifest file not found.');
