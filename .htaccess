@@ -1,10 +1,8 @@
-# # prod .htaccess
-# # Asegúrate de que el motor de reescritura está habilitado
-# RewriteEngine On
+# Asegúrate de que el motor de reescritura está habilitado
+RewriteEngine On
 
-# # Redirigir todas las solicitudes a /public/index.php
-# RewriteCond %{REQUEST_FILENAME} !-f
-# RewriteCond %{REQUEST_FILENAME} !-d
-# RewriteRule ^(.*)$ /public/index.php [L,QSA]
-# DirectoryIndex public/index.php 
-
+# Redirigir todas las solicitudes a /public/index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /public/index.php [L,QSA]
+DirectoryIndex public/index.php # # prod .htaccess
