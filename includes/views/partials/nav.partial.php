@@ -3,121 +3,53 @@ $baseClass = " rounded-md px-3 py-2 text-sm font-medium ";
 $activeClass = " bg-gray-900 text-white ";
 $unactiveClass = " text-gray-300 hover:bg-gray-700 hover:text-white ";
 
-$homeClass = isUrl('/') === true ?  : $activeClass . $unactiveClass . $baseClass;
-$aboutClass = isUrl('/about') === true ?  : $activeClass . $unactiveClass . $baseClass;
-$contactClass = isUrl('/contact') === true ?  : $activeClass . $unactiveClass . $baseClass;
-$adminClass = isUrl('/contact') === true ?  : $activeClass . $unactiveClass . $baseClass;
 
-$notesClass = isUrl('/notes') === true ?  : $activeClass . $unactiveClass . $baseClass; 
-$registerClass = isUrl('/register') === true ?  : $activeClass . $unactiveClass . $baseClass; 
+// $homeClass = isUrl('/') === true ?  : $activeClass . $unactiveClass . $baseClass; 
+// for apply conditional class echo variable inside class
+// echo $homeClass 
+// <a href="" class="" ></a>
+
 ?>
 
 
-<nav class="bg-gray-800">
+<nav class="bg-green-800">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="flex h-16 items-center justify-between">
         <div class="flex items-center">
-          <div class="shrink-0">
-            <img class="size-8" src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company">
-          </div>
-          <div class="hidden md:block">
-            <div class="ml-10 flex items-baseline space-x-4">
-              <a href="/" class="<?= $homeClass ?>">Home</a>
-              <a href="/about" class="<?= $aboutClass ?>" aria-current="page">About</a>
-              <a href="/contact" class="<?= $contactClass ?>">Contact</a>
-              
-              
-              
-              <?php if($_SESSION["user"] ?? false) : ?>
-                <a href="/admin/" class="<?= $adminClass ?>">Admin</a>
-                <a href="/notes" class="<?= $notesClass ?>">Notes</a>
-              <?php endif; ?>
-            </div>
-          </div>
+
+          <a href="/" >
+            <svg class="w-fit py-2 text-white" viewBox="0 0 265 55" width="265" height="55" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16.8.8A20 20 0 0 1 23.4 2l.4.4.2.6.4 4.5-.2.2-.2-.1a8 8 0 0 0-3.2-4.4 9.6 9.6 0 0 0-5.4-1.5c-1.9 0-3.5.4-4.9 1.3-1.3.8-2.4 2-3.1 3.6a15.7 15.7 0 0 0 .3 11.9c.9 1.9 2 3.5 3.6 4.6a8.6 8.6 0 0 0 5.2 1.7c3.7 0 6.3-2 7.8-6.2l.2-.1h.2v.2l-.4 4.5-.2.6-.5.3c-2.3.9-4.7 1.4-7.1 1.4-3 0-5.6-.7-7.7-1.9-2-1.2-3.5-2.8-4.5-4.7A13 13 0 0 1 3 13c0-2.3.6-4.4 1.9-6.2 1.3-1.9 3-3.3 5.2-4.3C12 1.4 14.4.8 16.8.8Zm16.7 14.9h7l.2.8H33l.6-.8Zm14 8.8c.2 0 .2.1.2.3 0 .1 0 .2-.2.2a50 50 0 0 1-4.4-.2 28.3 28.3 0 0 0-3.4.2l-.1-.2.1-.3c.7 0 1.1 0 1.4-.2.3-.2.4-.4.4-.8s-.1-1-.5-1.7L35.5 10l1.3-1.5-4.9 11.8c-.4 1-.6 1.9-.6 2.5 0 .6.2 1 .6 1.3.5.3 1.2.4 2.1.4.1 0 .2.1.2.3 0 .1 0 .2-.2.2h-1.5a27.8 27.8 0 0 0-6 0c-.2 0-.3 0-.3-.2s0-.3.2-.3c.8 0 1.4 0 1.9-.3.5-.2.9-.6 1.3-1.3.4-.6.9-1.6 1.4-3l5.6-13.3.2-.1.2.1 6.1 13.2 1.6 3c.4.7.8 1.1 1.2 1.4.4.2 1 .3 1.6.3Zm4.3-16.4h.8l-.4 12.6c0 1.4.2 2.4.6 3 .4.6 1 .8 2 .8l.1.3v.2H48.6v-.5c1 0 1.7-.2 2-.8.5-.6.7-1.6.8-3L51.8 8Zm20.8 16.4v.5h-8.3v-.5a7 7 0 0 0 2-.1c.4-.2.6-.5.8-.8l.2-1.7-.6-13.5.8-.7-7.1 17-.3.2c-.1 0-.2 0-.3-.2l-7.3-14.3c-.9-1.8-2-2.7-3.5-2.7l-.1-.3v-.2h4.5c.3 0 .6.1.8.4l1 1.6 6.1 12.2-1.2 2.3 6.4-15.5.5-.7c.2-.2.4-.3.7-.3h4.7l.1.2v.3c-1.1 0-1.9.1-2.4.5-.4.3-.6 1-.5 2L70 22l.2 1.7c.2.4.4.6.7.8l1.6.1Zm12.5-9.4c2 0 3.6.5 4.7 1.2 1.1.8 1.7 1.9 1.7 3.3 0 1-.3 2-1 2.9-.6.8-1.4 1.5-2.5 2-1.1.4-2.3.7-3.7.7a28 28 0 0 1-3.7-.2H75l-.1-.2v-.3l1.9-.1c.4-.2.6-.4.7-.8.2-.3.2-1 .2-1.7V10.3c0-.8 0-1.3-.2-1.7 0-.3-.3-.6-.7-.7a5 5 0 0 0-1.8-.2v-.5h1.7a46.2 46.2 0 0 0 7-.1 8 8 0 0 1 4.2 1c1 .6 1.6 1.6 1.6 2.8 0 1.1-.5 2-1.4 3-1 .8-2.3 1.3-4 1.6l1-.4Zm-2.4-7.5c-.6 0-1 0-1.4.2-.3.2-.5.4-.6.8a6 6 0 0 0-.2 1.8v4.9l-1.2-.3 2 .2 3.2-.2c.7-.2 1.2-.5 1.6-1 .4-.5.6-1.3.6-2.3 0-2.7-1.4-4.1-4-4.1Zm1 17c3.2 0 4.8-1.4 4.8-4.1A4 4 0 0 0 87 17c-1-.8-2.6-1.3-4.8-1.3l-2.9.2 1.2-.3v6.2c0 1 .2 1.7.6 2 .4.5 1.3.6 2.5.6Zm16.3-2.7c0 .8 0 1.4.2 1.7.1.4.3.6.7.8l1.8.1.1.3-.1.2h-8.3v-.5l1.8-.1c.4-.2.6-.4.7-.8.2-.3.3-1 .3-1.7V10.3c0-.8-.1-1.3-.3-1.7 0-.3-.3-.6-.7-.7-.4-.2-1-.2-1.8-.2v-.5h1.8a46.6 46.6 0 0 0 4.8 0h1.7l.1.2-.1.3a5 5 0 0 0-1.8.2c-.3.2-.6.4-.7.8l-.2 1.7v11.5Zm14.6 3.6a9 9 0 0 1-8-4.7 9.7 9.7 0 0 1 .4-9.7c1-1.4 2.3-2.5 3.9-3.2 1.5-.8 3.2-1.1 4.8-1.1a8.8 8.8 0 0 1 7.9 4.7 9.2 9.2 0 0 1-.3 9.1 10.3 10.3 0 0 1-8.7 4.9Zm1-.8c1.8 0 3.2-.7 4.3-2.1 1-1.5 1.6-3.4 1.6-5.8 0-1.7-.3-3.3-.8-4.6a7.6 7.6 0 0 0-2.5-3.3 6 6 0 0 0-3.8-1.3c-1.8 0-3.3.7-4.3 2a9 9 0 0 0-1.5 5.6c0 1.7.3 3.3.8 4.8a8.2 8.2 0 0 0 2.5 3.4c1 .8 2.3 1.3 3.7 1.3Zm15.1-14.5c0 .8.2 1.4.6 2l1.4 1.4a45.7 45.7 0 0 0 5 2.7c.6.5 1.2 1 1.6 1.7.4.6.7 1.4.7 2.3 0 1-.3 1.8-.9 2.6-.5.8-1.3 1.4-2.2 1.9a8 8 0 0 1-3.5.7c-1 0-1.9-.2-2.7-.4-.9-.3-1.6-.6-2.2-1a.7.7 0 0 1-.2-.2l-.1-.5-.4-4 .2-.1h.3a10 10 0 0 0 2.3 3.9c1 1 2.3 1.6 3.6 1.6.8 0 1.5-.3 2.1-.8.6-.5 1-1.2 1-2.3 0-.8-.3-1.5-.7-2.1-.4-.6-.9-1.1-1.5-1.6l-2.4-1.4-2.3-1.4c-.7-.4-1.2-1-1.6-1.6a4 4 0 0 1-.6-2.2 4 4 0 0 1 1.7-3.4 7.2 7.2 0 0 1 4.3-1.2c1.4 0 2.8.3 4.1.8l.4.3.2.4.1 3.4c0 .1 0 .2-.2.2h-.2c-.2-.6-.5-1.3-1-2-.4-.7-1-1.3-1.7-1.7a4 4 0 0 0-2.4-.8c-.9 0-1.6.3-2 .8-.5.5-.8 1.2-.8 2Zm23.9-5.9c0-.7 0-1.3-.2-1.6-.2-.4-.5-.6-1-.8l-1.9-.2-.1-.2.1-.3h2a61.7 61.7 0 0 0 5.3 0h1.9v.5c-1 0-1.6 0-2 .2-.4.2-.7.5-.9.8l-.2 1.7v17.5c0 .8 0 1.4.2 1.7.1.4.4.6.8.8a8 8 0 0 0 2 .1c.1 0 .2.1.2.3l-.1.2h-9.3v-.5l2-.1c.5-.2.8-.4 1-.8l.2-1.7V4.3Zm3.9 7.8 2.2-2 5.7 7.3c1.7 2.4 3.1 4.1 4 5 1 1 1.7 1.6 2.2 1.8.5.2 1.3.3 2.2.3l.1.3-.1.2h-5.4l-.9-.1a85.5 85.5 0 0 0-4.3-5.4l-5.7-7.4Zm6.9-7.5c.8-.9 1.2-1.5 1.2-2 0-.6-.8-.9-2.2-.9-.1 0-.2 0-.2-.2s0-.3.2-.3h1.6a58 58 0 0 0 5.7 0h1.5l.1.3v.2c-1.2 0-2.3.3-3.6.8-1.2.5-2.3 1.3-3.4 2.3l-9.7 9.7h-1l9.8-10ZM176.2 25v-.5l1.8-.1c.4-.2.6-.4.7-.8.2-.3.3-1 .3-1.7V10.3c0-.8-.1-1.3-.3-1.7-.1-.3-.3-.6-.7-.7a5 5 0 0 0-1.8-.2v-.5h13.4c.3 0 .4.1.4.3v4.2l-.2.1-.2-.1a5 5 0 0 0-1.6-2.8 4 4 0 0 0-2.8-1.2h-.8c-.8 0-1.4 0-1.8.2-.3.2-.6.4-.7.8l-.2 1.6v11.5l.2 1.6c.1.4.4.7.7.8l1.8.2h1.4c1 0 2-.4 3-1.3.9-.8 1.5-1.9 1.9-3.2h.4a48 48 0 0 0-.4 5l-.4.1h-14Zm11.8-8.2-1.7-.2c-1-.2-3-.2-5.7-.2v-.9a56.5 56.5 0 0 0 7.4-.4c.2 0 .3.3.3.9 0 .5-.1.8-.3.8Zm11.7 5.1c0 .8 0 1.4.2 1.7 0 .4.3.6.7.8l1.8.1v.5H194l-.1-.2v-.3l1.9-.1c.3-.2.6-.4.7-.8.2-.3.3-1 .3-1.7V10.3c0-.8-.1-1.3-.3-1.7-.1-.3-.4-.6-.7-.7-.4-.2-1-.2-1.8-.2l-.1-.3v-.2h1.9a46.6 46.6 0 0 0 4.8 0h1.7v.5a5 5 0 0 0-1.8.2c-.3.2-.6.4-.7.8-.2.4-.2 1-.2 1.7v11.5Zm7.8-13.8h.7v12.6c0 1.4.3 2.4.7 3 .4.6 1 .8 2 .8l.1.3v.2H204.7v-.5c1 0 1.7-.2 2-.8.5-.6.7-1.6.7-3V8Zm14.3 17.3-.2.1h-.2l-12.8-15.2a11 11 0 0 0-2.2-2 3 3 0 0 0-1.7-.6v-.5h4.6c.2 0 .4 0 .5.2l.6.7.8 1 10.2 12.3.4 4Zm0 0-.7-1.2V11.6c0-1.4-.2-2.4-.7-3-.4-.6-1-1-2-1v-.4h1.3a24.9 24.9 0 0 0 3.4 0h1.5v.5c-1 0-1.7.3-2.1.9-.5.6-.7 1.6-.7 3v13.8Zm4.9-.4v-.5l1.7-.1c.4-.2.7-.4.8-.8.2-.3.2-1 .2-1.7V10.3c0-.8 0-1.3-.2-1.7-.1-.3-.4-.6-.8-.7a5 5 0 0 0-1.7-.2v-.5H240c.2 0 .3.1.3.3V10l.1 1.8-.2.1-.2-.1a5 5 0 0 0-1.6-2.8 4 4 0 0 0-2.8-1.2h-.9c-.7 0-1.3 0-1.7.2-.3.2-.6.4-.7.8l-.2 1.6v11.5c0 .7 0 1.3.2 1.6.1.4.4.7.7.8l1.7.2h1.4c1.1 0 2.1-.4 3-1.3 1-.8 1.6-1.9 2-3.2h.4a48 48 0 0 0-.4 5l-.4.1h-14.1Zm11.8-8.2-1.7-.2c-1-.2-3-.2-5.8-.2v-.9a56.5 56.5 0 0 0 7.5-.4c.2 0 .2.3.2.9 0 .5 0 .8-.2.8Zm14 7.7c.1 0 .2.1.2.3l-.1.2h-8.3v-.5l1.8-.1c.4-.2.6-.4.8-.8l.2-1.7V10.3c0-.8 0-1.3-.2-1.7-.2-.3-.4-.6-.8-.7-.3-.2-1-.2-1.7-.2l-.1-.3v-.2h1.8a46.3 46.3 0 0 0 7-.1 7 7 0 0 1 4 1c.8.6 1.3 1.5 1.3 2.7 0 1-.3 2-1 2.9-.6.9-1.5 1.6-2.6 2.1s-2.3.8-3.7.8c-.8 0-1.5 0-2-.2l-.1-.8a9 9 0 0 0 2.4.3c1.5 0 2.6-.4 3.1-1 .6-.7 1-1.7 1-3 0-2.8-1.2-4.2-3.4-4.2-1 0-1.5.2-1.8.6-.3.3-.4 1-.4 2V22c0 .8 0 1.4.2 1.7.1.4.4.6.7.8l1.8.1Zm11.5 0v.5h-5c-.4 0-1.2-.8-2.4-2.4a74.8 74.8 0 0 1-4-6.4l2.3-.8a71 71 0 0 0 3.7 5.5c1 1.3 1.9 2.3 2.7 2.8.8.6 1.7.8 2.7.8Z" fill="currentColor"/><path d="M2 33.4c79.7 34.6 122.6 18.2 191.9 4 62.8-12.8 71.2 6.6 70 4.2M2 33.4 1 33m1 .4L3 30" stroke="currentColor" stroke-width="2"/><path d="M2 29.4c79.7 34.6 122.6 18.2 191.9 4 62.8-12.8 71.1 6.1 70 4.2l.1 4.4" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </a>
         </div>
-        <div class="hidden md:block">
+        <div>
           <div class="ml-4 flex items-center md:ml-6">
-            <button type="button" class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-              <span class="absolute -inset-1.5"></span>
-              <span class="sr-only">View notifications</span>
-              <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
-              </svg>
-            </button>
+            
 
             <!-- Profile dropdown -->
             <div class="flex items-center gap-3">
-
-              <div>
-                  <img class="size-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-              </div>
 
             <?php if($_SESSION["user"] ?? false) : ?>
 
               <form action="/logout" method="post">
                 <input type="hidden" name="_method" value="DELETE">
-                <button type="submit" class="rounded-md bg-slate-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-600">Logout</button>
+                <button type="submit" class="rounded-md bg-sky-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-sky-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600">Salir</button>
               </form>
 
+              <a href="/admin/" class="rounded-md bg-sky-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-sky-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600">Panel</a>
+
+
             <?php else : ?>
-              <a href="/account/register" class="rounded-md bg-slate-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-600">Register</a>
-              <a href="/login" class="rounded-md bg-slate-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-slate-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-600">Login</a>
+              <a href="/login" class="rounded-md bg-sky-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-sky-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600">Panel</a>
             <?php endif; ?>
             </div>
           </div>
         </div>
-        <div class="-mr-2 flex md:hidden">
-          <!-- Mobile menu button -->
-          <button type="button" class="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" aria-controls="mobile-menu" aria-expanded="false">
-            <span class="absolute -inset-0.5"></span>
-            <span class="sr-only">Open main menu</span>
-            <!-- Menu open: "hidden", Menu closed: "block" -->
-            <svg class="block size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-            </svg>
-            <!-- Menu open: "block", Menu closed: "hidden" -->
-            <svg class="hidden size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
+
       </div>
     </div>
 
-    <!-- Mobile menu, show/hide based on menu state. -->
-    <div class="md:hidden" id="mobile-menu">
-      <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-        <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-        <a href="#" class="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white" aria-current="page">Dashboard</a>
-        <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Team</a>
-        <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Projects</a>
-        <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Calendar</a>
-        <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Reports</a>
-      </div>
-      <div class="border-t border-gray-700 pb-3 pt-4">
-        <div class="flex items-center px-5">
-          <div class="shrink-0">
-            <img class="size-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-          </div>
-          <div class="ml-3">
-            <div class="text-base/5 font-medium text-white">Tom Cook</div>
-            <div class="text-sm font-medium text-gray-400">tom@example.com</div>
-          </div>
-          <button type="button" class="relative ml-auto shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-            <span class="absolute -inset-1.5"></span>
-            <span class="sr-only">View notifications</span>
-            <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
-            </svg>
-          </button>
-        </div>
-        <div class="mt-3 space-y-1 px-2">
-          <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Your Profile</a>
-          <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Settings</a>
-          <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Sign out</a>
-        </div>
-      </div>
-    </div>
   </nav>
 
 <!-- this will be close in footer -->

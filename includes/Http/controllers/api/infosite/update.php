@@ -49,6 +49,11 @@ $address = $optionalValidations->validateOptionalField(
     "La deirección no puede tener mas de 200 letras"
 );
 
+$message = $optionalValidations->validateOptionalField(
+    "whatsapp_message",
+    fn($field) =>  mb_strlen($field) <= 400,
+    "El mensaje de Whatsapp no puede tener mas de 400 letras"
+);
 
 if ($optionalValidations->hasErrors()) {
     http_response_code(400);
@@ -56,13 +61,15 @@ if ($optionalValidations->hasErrors()) {
     exit();
 }
 
-$db->query("UPDATE info_site SET domain = :domain, email = :email, address = :address, phone_number = :phone_number, whatsapp_number = :whatsapp_number  WHERE id = :id", [
+
+$db->query("UPDATE info_site SET domain = :domain, email = :email, address = :address, phone_number = :phone_number, whatsapp_number = :whatsapp_number, whatsapp_message = :whatsapp_message  WHERE id = :id", [
     "domain" => $data["domain"],
     "email" => $email,
     "address" => $address,
     "phone_number" => $phone,
     "whatsapp_number" => $data["whatsapp_number"],
-    "id" => $infosite["id"]
+    "whatsapp_message" => $message,
+    "id" => $infosite["id"],
 ]);
 
 echo json_encode(["message" => "datos del sitio actualizados con exito"]);

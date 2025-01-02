@@ -1,0 +1,1 @@
+ALTER TABLE info_site ADD COLUMN whatsapp_message VARCHAR(400) NULL;

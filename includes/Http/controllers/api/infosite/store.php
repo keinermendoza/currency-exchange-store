@@ -51,18 +51,25 @@ $address = $optionalValidations->validateOptionalField(
 );
 
 
+$message = $optionalValidations->validateOptionalField(
+    "whatsapp_message",
+    fn($field) =>  mb_strlen($field) <= 400,
+    "El mensaje de Whatsapp no puede tener mas de 400 letras"
+);
+
 if ($optionalValidations->hasErrors()) {
     http_response_code(400);
     echo json_encode(["errors" => $optionalValidations->getErrors()]);
     exit();
 }
 
-$db->query("INSERT INTO info_site (domain, email, address, phone_number, whatsapp_number) VALUES (:domain, :email, :address, :phone_number, :whatsapp_number) ", [
+$db->query("INSERT INTO info_site (domain, email, address, phone_number, whatsapp_number, whatsapp_number) VALUES (:domain, :email, :address, :phone_number, :whatsapp_number, :whatsapp_message) ", [
     "domain" => $data["domain"],
     "email" => $email,
     "address" => $address,
     "phone_number" => $phone,
     "whatsapp_number" => $data["whatsapp_number"],
+    "whatsapp_message" => $message
 ]);
 
 echo json_encode(["message" => "sitio registrado con exito"]);

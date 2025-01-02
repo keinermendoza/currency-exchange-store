@@ -6,24 +6,24 @@ const GUEST = "guest";
 $router = new \Core\AltoRouter();
 
 $router->get("/", "index.php");
-$router->get("/contact", "contact.php");
+// $router->get("/contact", "contact.php");
 
-$router->get("/about", "about.php");
-
-
-$router->get("/notes", "notes/index.php", permission: ADMIN);
-$router->post("/notes", "notes/store.php", permission: ADMIN);
-
-$router->get("/note/[i:id]", "notes/show.php", permission: ADMIN);
-$router->delete("/note/[i:id]", "notes/destroy.php", permission: ADMIN);
-$router->patch("/note/[i:id]", "notes/update.php", permission: ADMIN);
+// $router->get("/about", "about.php");
 
 
-$router->get("/notes/create", "notes/create.php", permission: ADMIN);
-$router->get("/note/edit/[i:id]", "notes/edit.php", permission: ADMIN);
+// $router->get("/notes", "notes/index.php", permission: ADMIN);
+// $router->post("/notes", "notes/store.php", permission: ADMIN);
 
-$router->get("/account/register", "account/create.php", permission: GUEST);
-$router->post("/account/register", "account/store.php", permission: GUEST);
+// $router->get("/note/[i:id]", "notes/show.php", permission: ADMIN);
+// $router->delete("/note/[i:id]", "notes/destroy.php", permission: ADMIN);
+// $router->patch("/note/[i:id]", "notes/update.php", permission: ADMIN);
+
+
+// $router->get("/notes/create", "notes/create.php", permission: ADMIN);
+// $router->get("/note/edit/[i:id]", "notes/edit.php", permission: ADMIN);
+
+// $router->get("/account/register", "account/create.php", permission: GUEST);
+// $router->post("/account/register", "account/store.php", permission: GUEST);
 
 $router->get("/login", "session/create.php", permission: GUEST);
 $router->post("/login", "session/store.php", permission: GUEST);

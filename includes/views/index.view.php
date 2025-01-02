@@ -1,8 +1,25 @@
+<?php
+    $encoded_message = urlencode($infosite["whatsapp_message"] ?? '');
+?>
+
 <?php require base_path("views/partials/head.partial.php"); ?>
 <?php require base_path("views/partials/nav.partial.php"); ?>
  
 <script id="exchanges-json" type="application/json"><?= json_encode($exchanges) ?></script>
 <main class="p-4">
+
+
+    <?php if(isset($infosite["whatsapp_number"])) : ?>
+        <p class="fixed transition-transform duration-200 hover:scale-110 bottom-10 right-10">
+            <a class="flex items-center p-4 gap-4 rounded-full bg-[#3edf5b] text-white" 
+            target="_blank" href="https://wa.me/<?= $infosite["whatsapp_number"] ?>?text=<?= $encoded_message ?>" aria-label="Realizar envio de dinero">
+                <svg class="size-8" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path fill="currentColor" fill-rule="evenodd" d="M12 4a8 8 0 0 0-6.895 12.06l.569.718-.697 2.359 2.32-.648.379.243A8 8 0 1 0 12 4ZM2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10a9.96 9.96 0 0 1-5.016-1.347l-4.948 1.382 1.426-4.829-.006-.007-.033-.055A9.958 9.958 0 0 1 2 12Z" clip-rule="evenodd"/>
+                    <path fill="currentColor" d="M16.735 13.492c-.038-.018-1.497-.736-1.756-.83a1.008 1.008 0 0 0-.34-.075c-.196 0-.362.098-.49.291-.146.217-.587.732-.723.886-.018.02-.042.045-.057.045-.013 0-.239-.093-.307-.123-1.564-.68-2.751-2.313-2.914-2.589-.023-.04-.024-.057-.024-.057.005-.021.058-.074.085-.101.08-.079.166-.182.249-.283l.117-.14c.121-.14.175-.25.237-.375l.033-.066a.68.68 0 0 0-.02-.64c-.034-.069-.65-1.555-.715-1.711-.158-.377-.366-.552-.655-.552-.027 0 0 0-.112.005-.137.005-.883.104-1.213.311-.35.22-.94.924-.94 2.16 0 1.112.705 2.162 1.008 2.561l.041.06c1.161 1.695 2.608 2.951 4.074 3.537 1.412.564 2.081.63 2.461.63.16 0 .288-.013.4-.024l.072-.007c.488-.043 1.56-.599 1.804-1.276.192-.534.243-1.117.115-1.329-.088-.144-.239-.216-.43-.308Z"/>
+                </svg>
+            </a>
+        </p>
+        <?php endif ?>
 
     <section class="relative p-4 sm:p-8 w-full max-w-5xl mx-auto h-screen max-h-[600px] rounded-lg overflow-hidden">
     <picture>
@@ -21,7 +38,7 @@
             </svg>
 
             <div class="mt-12 ">
-                <h2 class="text-2xl font-medium mb-2 sm:max-w-sm">La forma más Simple de Enviar dinero a Venezuela</h2>
+                <h2 class="text-2xl md:text-3xl font-medium mb-4 sm:max-w-sm">La forma más Simple de Enviar dinero entre Brasil y Venezuela</h2>
                 <p class="max-w-md">Descomplica tus envíos de Dinero a Venezuela con nosotros. Tambien puedes recibir transferencias desde Venezuela con nosotros a tu Pix.</p>
             </div>
         </div>
@@ -29,7 +46,9 @@
 
         <?php if(isset($infosite["whatsapp_number"])) : ?>
             
-            <a  target="_blank" href="https://wa.me/<?= $infosite["whatsapp_number"] ?>?text=Hola,%20estaba%viendo%20su%20pagina%20y%20me%20gustaría%20enviar%20dinero%20" aria-label="Realizar envio de dinero" class="text-xl flex items-center p-4 gap-4  w-fit text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full px-5 py-2.5 text-center me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+            <a  target="_blank" href="https://wa.me/<?= $infosite["whatsapp_number"] ?>?text=<?= $encoded_message ?>" 
+            aria-label="Realizar envio de dinero" 
+            class="animate-on-viewport text-xl flex items-center p-4 gap-4  w-fit text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full px-5 py-2.5 text-center me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
             <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path fill="currentColor" fill-rule="evenodd" d="M12 4a8 8 0 0 0-6.895 12.06l.569.718-.697 2.359 2.32-.648.379.243A8 8 0 1 0 12 4ZM2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10a9.96 9.96 0 0 1-5.016-1.347l-4.948 1.382 1.426-4.829-.006-.007-.033-.055A9.958 9.958 0 0 1 2 12Z" clip-rule="evenodd"/>
                     <path fill="currentColor" d="M16.735 13.492c-.038-.018-1.497-.736-1.756-.83a1.008 1.008 0 0 0-.34-.075c-.196 0-.362.098-.49.291-.146.217-.587.732-.723.886-.018.02-.042.045-.057.045-.013 0-.239-.093-.307-.123-1.564-.68-2.751-2.313-2.914-2.589-.023-.04-.024-.057-.024-.057.005-.021.058-.074.085-.101.08-.079.166-.182.249-.283l.117-.14c.121-.14.175-.25.237-.375l.033-.066a.68.68 0 0 0-.02-.64c-.034-.069-.65-1.555-.715-1.711-.158-.377-.366-.552-.655-.552-.027 0 0 0-.112.005-.137.005-.883.104-1.213.311-.35.22-.94.924-.94 2.16 0 1.112.705 2.162 1.008 2.561l.041.06c1.161 1.695 2.608 2.951 4.074 3.537 1.412.564 2.081.63 2.461.63.16 0 .288-.013.4-.024l.072-.007c.488-.043 1.56-.599 1.804-1.276.192-.534.243-1.117.115-1.329-.088-.144-.239-.216-.43-.308Z"/>
@@ -49,29 +68,23 @@
         
         
             
-        <div class="mt-6 w-full max-w-5xl mx-auto bg-green-300 rounded-xl px-8 pt-8 flex justify-between items-center">
+        <div class="mt-6 w-full max-w-5xl mx-auto bg-green-300 rounded-xl px-8 pt-8 flex flex-col-reverse md:flex-row justify-between items-center gap-4">
+            <img class="animate-on-viewport w-full max-w-sm bottom-0" src="/static/money.png" alt="dinero">
             <div class="max-w-sm mb-8 flex flex-col gap-4">
-                <h2 class="text-4xl font-medium">Cambios al Valor del Día</h2>
-                <p class="text-2xl">Usa nuestra calculadora</p>
-                <p>ss</p>
+                <h2 class="text-2xl lg:text-4xl font-medium">Envía y recibe dinero</h2>
+                <p class="text-lg">Usa tu Pix o Transferencias Bancarias</p>
+                <img class="w-1/2 rounded-md overflow-hidden" src="/static/pix.jpg" alt="pix">
+
+
+                <p class="text-lg">En Venezuela trabajamos con transferencias bancarias, PagomóvilBDV y Tpago.</p>
+                <div class="flex gap-2">
+                    <img class="w-1/2 rounded-md overflow-hidden" src="/static/bdv.jpg" alt="banco de venezuela">
+                    <img class="w-1/2 rounded-md overflow-hidden" src="/static/mercantil.jpg" alt="banco mercantil">
+                </div>
+
             </div>
 
-            <img class="w-full max-w-sm bottom-0" src="/static/money.png" alt="dinero">
         </div>
-        
-        
-        <?php if(isset($infosite["whatsapp_number"])) : ?>
-        <p class="mx-auto w-fit mt-6">
-            <a class="flex items-center p-4 gap-4 rounded-full bg-green-800 text-white" 
-            target="_blank" href="https://wa.me/<?= $infosite["whatsapp_number"] ?>?text=Hola,%20estaba%viendo%20su%20pagina%20y%20me%20gustaría%20enviar%20dinero%20" aria-label="Realizar envio de dinero">
-                <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                    <path fill="currentColor" fill-rule="evenodd" d="M12 4a8 8 0 0 0-6.895 12.06l.569.718-.697 2.359 2.32-.648.379.243A8 8 0 1 0 12 4ZM2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10a9.96 9.96 0 0 1-5.016-1.347l-4.948 1.382 1.426-4.829-.006-.007-.033-.055A9.958 9.958 0 0 1 2 12Z" clip-rule="evenodd"/>
-                    <path fill="currentColor" d="M16.735 13.492c-.038-.018-1.497-.736-1.756-.83a1.008 1.008 0 0 0-.34-.075c-.196 0-.362.098-.49.291-.146.217-.587.732-.723.886-.018.02-.042.045-.057.045-.013 0-.239-.093-.307-.123-1.564-.68-2.751-2.313-2.914-2.589-.023-.04-.024-.057-.024-.057.005-.021.058-.074.085-.101.08-.079.166-.182.249-.283l.117-.14c.121-.14.175-.25.237-.375l.033-.066a.68.68 0 0 0-.02-.64c-.034-.069-.65-1.555-.715-1.711-.158-.377-.366-.552-.655-.552-.027 0 0 0-.112.005-.137.005-.883.104-1.213.311-.35.22-.94.924-.94 2.16 0 1.112.705 2.162 1.008 2.561l.041.06c1.161 1.695 2.608 2.951 4.074 3.537 1.412.564 2.081.63 2.461.63.16 0 .288-.013.4-.024l.072-.007c.488-.043 1.56-.599 1.804-1.276.192-.534.243-1.117.115-1.329-.088-.144-.239-.216-.43-.308Z"/>
-                </svg>
-                <span>Hacer cambio</span>
-            </a>
-        </p>
-        <?php endif ?>
     </section>
 
     <section >
@@ -139,12 +152,12 @@
                 <?php if(isset($infosite["whatsapp_number"])) : ?>
                 <p class="w-fit mt-6">
                     <a class="flex items-center p-4 gap-4 rounded-full bg-green-800 text-white" 
-                    target="_blank" href="https://wa.me/<?= $infosite["whatsapp_number"] ?>?text=Hola,%20estaba%viendo%20su%20pagina%20y%20me%20gustaría%20enviar%20dinero%20" aria-label="Realizar envio de dinero">
+                    target="_blank" href="https://wa.me/<?= $infosite["whatsapp_number"] ?>?text=<?= $encoded_message ?>" aria-label="Realizar envio de dinero">
                         <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                             <path fill="currentColor" fill-rule="evenodd" d="M12 4a8 8 0 0 0-6.895 12.06l.569.718-.697 2.359 2.32-.648.379.243A8 8 0 1 0 12 4ZM2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10a9.96 9.96 0 0 1-5.016-1.347l-4.948 1.382 1.426-4.829-.006-.007-.033-.055A9.958 9.958 0 0 1 2 12Z" clip-rule="evenodd"/>
                             <path fill="currentColor" d="M16.735 13.492c-.038-.018-1.497-.736-1.756-.83a1.008 1.008 0 0 0-.34-.075c-.196 0-.362.098-.49.291-.146.217-.587.732-.723.886-.018.02-.042.045-.057.045-.013 0-.239-.093-.307-.123-1.564-.68-2.751-2.313-2.914-2.589-.023-.04-.024-.057-.024-.057.005-.021.058-.074.085-.101.08-.079.166-.182.249-.283l.117-.14c.121-.14.175-.25.237-.375l.033-.066a.68.68 0 0 0-.02-.64c-.034-.069-.65-1.555-.715-1.711-.158-.377-.366-.552-.655-.552-.027 0 0 0-.112.005-.137.005-.883.104-1.213.311-.35.22-.94.924-.94 2.16 0 1.112.705 2.162 1.008 2.561l.041.06c1.161 1.695 2.608 2.951 4.074 3.537 1.412.564 2.081.63 2.461.63.16 0 .288-.013.4-.024l.072-.007c.488-.043 1.56-.599 1.804-1.276.192-.534.243-1.117.115-1.329-.088-.144-.239-.216-.43-.308Z"/>
                         </svg>
-                        <span>Hacer cambio</span>
+                        <span>Quiero enviar dinero</span>
                     </a>
                 </p>
                 <?php endif ?>
@@ -155,5 +168,35 @@
     
 
 </main>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+
+    let options = {
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.5,
+    };
+
+    const targets = document.querySelectorAll(".animate-on-viewport");
+
+    const callback = function (entries, observer) {
+        entries.forEach((entry) => {
+    
+        if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+        } else {
+            entry.target.classList.remove("show");
+        }
+
+    });
+};
+
+    let observer = new IntersectionObserver(callback, options);
+    targets.forEach((target) => observer.observe(target));
+})
+    
+</script>
+
 <?php require base_path("views/partials/footer.partial.php"); ?>
 

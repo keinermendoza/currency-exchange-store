@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.animate-on-viewport {
+    opacity: 0;
+    transform: translateX(-100px);
+    transition: opacity 300ms, transform 300ms;
+}
+
+.animate-on-viewport.show {
+    opacity: 1;
+    transform: translateX(0);
+}

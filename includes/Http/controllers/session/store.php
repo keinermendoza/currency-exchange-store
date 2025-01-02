@@ -2,6 +2,7 @@
 
 use Core\Authenticator;
 use Http\Validator\Validator;
+use Core\Session;
 
 $rules = require base_path("Http/Validator/rules/UserLogin.php");
 $validator = new Validator($_POST, $rules);
@@ -9,14 +10,16 @@ $validator = new Validator($_POST, $rules);
 
 if ($validator->validate()) {
     if (Authenticator::attempt($_POST["email"], $_POST["password"])) {
-        redirect('/');
+        redirect('admin/');
     }
 }
 
-$validator->addError("email", "email or password dosen't match");
+if (!$validator->hasErrors()) {
+    $validator->addError("email", "usuario o contraseña incorrectos");
+}
 
-view("session/create.view.php", [
-    "title" => "Login",
-    "errors" => $validator->getErrors()
-]);
+Session::flash("errors", $validator->getErrors());
+redirect('login');
+
+
 exit();
