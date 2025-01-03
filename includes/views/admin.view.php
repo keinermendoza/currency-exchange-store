@@ -17,7 +17,7 @@
             // Incluye el archivo CSS si está definido
             if (!empty($assets['css'])) {
                 foreach ($assets['css'] as $cssFile) {
-                    echo '<link rel="stylesheet" href="/static/' . $cssFile . '">' . PHP_EOL;
+                    echo '<link rel="stylesheet" href="/static/vendor/' . $cssFile . '">' . PHP_EOL;
                 }
             }
         } catch (Exception $e) {
