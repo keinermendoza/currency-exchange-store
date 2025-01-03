@@ -38,7 +38,7 @@
             </svg>
 
             <div class="mt-12 ">
-                <h2 class="text-2xl md:text-3xl font-medium mb-4 sm:max-w-sm">La forma más Simple de Enviar dinero entre Brasil y Venezuela</h2>
+                <h2 class="text-2xl md:text-3xl font-semibold mb-4 sm:max-w-sm">La forma más Simple de Enviar dinero entre Brasil y Venezuela</h2>
                 <p class="max-w-md">Descomplica tus envíos de Dinero a Venezuela con nosotros. Tambien puedes recibir transferencias desde Venezuela con nosotros a tu Pix.</p>
             </div>
         </div>
@@ -103,7 +103,7 @@
             <div class="w-full flex flex-col sm:flex-row justify-between items-center gap-4">
             
                 <div class="w-full">
-                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Valor de Moneda Base</label>
+                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Envias</label>
                     <div class="flex">
                         <div class="flex gap-3  items-center p-3 text-sm text-gray-900 bg-gray-200 border rounded-e-0 border-gray-300 border-e-0 rounded-s-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
                             <img class="bg-gray-500 rounded-full shadow-lg object-fit size-12" id="base_image" src="" alt="" />
@@ -123,7 +123,7 @@
                 </svg>
 
                 <div class="w-full">
-                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Valor Moneda de Destino</label>
+                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Recibes</label>
                     <div class="flex">
                         <div class="flex gap-3  items-center p-3 text-sm text-gray-900 bg-gray-200 border rounded-e-0 border-gray-300 border-e-0 rounded-s-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
                             <img class="bg-gray-500 rounded-full shadow-lg object-fit size-12" id="target_image" src="" alt="" />

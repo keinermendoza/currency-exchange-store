@@ -113,9 +113,9 @@ function transformDate(DateISO) {
         function fillReferenceData() {
             updated.innerHTML = transformDate(selectedExchange.updated_at); 
             baseSymbol.forEach(spanEl => spanEl.innerHTML = selectedExchange.base_symbol);
-            baseAmount.innerHTML =  Math.floor(parseFloat(selectedExchange.base_amount) * 100) / 100; 
+            baseAmount.innerHTML =  parseFloat(selectedExchange.base_amount); 
             targetSymbol.forEach(spanEl => spanEl.innerHTML = selectedExchange.target_symbol);
-            targetAmount.innerHTML =  Math.floor(parseFloat(selectedExchange.target_amount) * 100) / 100;
+            targetAmount.innerHTML =  parseFloat(selectedExchange.target_amount);
             baseImage.src = selectedExchange.base_image;
             targetImage.src = selectedExchange.target_image;
         

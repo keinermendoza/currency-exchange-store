@@ -2,7 +2,8 @@
 module.exports = {
   content: ["./includes/views/**/*.{html,php}"],
   theme: {
-    extend: {},
+    extend: {
+    },
   },
   plugins: [],
 }
