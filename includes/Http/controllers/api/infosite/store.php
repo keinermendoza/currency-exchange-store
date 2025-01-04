@@ -63,7 +63,7 @@ if ($optionalValidations->hasErrors()) {
     exit();
 }
 
-$db->query("INSERT INTO info_site (domain, email, address, phone_number, whatsapp_number, whatsapp_number) VALUES (:domain, :email, :address, :phone_number, :whatsapp_number, :whatsapp_message) ", [
+$db->query("INSERT INTO info_site (domain, email, address, phone_number, whatsapp_number, whatsapp_message) VALUES (:domain, :email, :address, :phone_number, :whatsapp_number, :whatsapp_message) ", [
     "domain" => $data["domain"],
     "email" => $email,
     "address" => $address,

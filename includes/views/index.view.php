@@ -10,7 +10,7 @@
 
 
     <?php if(isset($infosite["whatsapp_number"])) : ?>
-        <p class="fixed transition-transform duration-200 hover:scale-110 bottom-10 right-10">
+        <p class="fixed z-20 transition-transform duration-200 hover:scale-110 bottom-10 right-10">
             <a class="flex items-center p-4 gap-4 rounded-full bg-[#3edf5b] text-white" 
             target="_blank" href="https://wa.me/<?= $infosite["whatsapp_number"] ?>?text=<?= $encoded_message ?>" aria-label="Realizar envio de dinero">
                 <svg class="size-8" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
