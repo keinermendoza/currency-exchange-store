@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { CardAction, CardFooter, PrimaryButton } from "../../components/ui";
 import { useFetchGet} from '../../hooks/fetcher';
 import { fetchPost } from "../../services/fetchPost";
+import { displayResponseMessages } from "../../lib/utils";
 
 export function Social() {
 const endpoint = "socialaccounts";
@@ -29,29 +30,9 @@ const onSubmit = async (data) => {
   }
 
   const response = await fetchPost(endpoint, data, method);
-  if (response.errors) {
-    const dataKeys = Object.keys(data);
-    showErrors(dataKeys, response.errors)
-  } else {
-    console.log(response)
-    if (response.message) {
-      toast.success(response.message);
-    }
-  }
+  displayResponseMessages(response, data, setError);
+
 }
-
-
-function showErrors(keys, errorObj) {
-  Object.keys(errorObj).forEach(key => {
-    if(keys.includes(key)) {
-      console.log(key, errorObj[key])
-      setError(key, { type: "server", message: errorObj[key] })
-    } else {
-      toast.error(errorObj[key]);
-    }
-  });
-}
-
 
 return (
   <div>

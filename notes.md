@@ -7,6 +7,9 @@ php -S localhost:8888 -t public
 - [x] salvar como is_default true cuando no hay instancias en exchangerate ruta exchangerate/store
 - [x] reescribir migraciones sql de forma más concreta
 - [x] modificar mensajes de eliminaciónen currency y excahgerate frontend 
-- [ ] generar mensajes de error por defecto en panel de control
-- [ ] crear context para mostrar mensajes de exito despues de cambiar de ruta en dahsboard
+- [x] generar mensajes de error por defecto en panel de control
+  - para solucionar esto modifique la forma en como se manejan los errores tanto dentro de fetchPost como por medio de la helper function utils.displayResponseMessages  
+- [x] crear context para mostrar mensajes de exito despues de cambiar de ruta en dahsboard
+- [x] reposicionar is_default al eliminar actual is_default exchange
+- [ ] conseguir solucion alternativa para mostrar messages entre renders
 - [ ] probar a hacer deploy extra de un sitio con esta app

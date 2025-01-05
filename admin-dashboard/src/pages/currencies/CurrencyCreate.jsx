@@ -4,10 +4,14 @@ import { CardAction, CardFooter, PrimaryButton } from "../../components/ui";
 import {ImageField, inputTextStyle} from "../../components/forms";
 import { fetchPostForm } from "../../services/fetchPost";
 import { ComeBackLink } from "../../components/ComeBackLink";
+import { useMessageProvider } from "../../utils/MessageContext";
+
 export  function CurrencyCreate() {
   const endpoint = "currencies";
   const navigate = useNavigate();
   const { register, handleSubmit, setValue, control, formState: { errors, isSubmitting } } = useForm();
+  const {addMessage} = useMessageProvider();
+
   
   const onSubmit = async (data) => {
     console.log("data", data);
@@ -17,6 +21,7 @@ export  function CurrencyCreate() {
     const response = await fetchPostForm(endpoint, formData);
     
     if (!response.errors) {
+      addMessage("Moneda creada con exito!");
       navigate("../");
     }
   }

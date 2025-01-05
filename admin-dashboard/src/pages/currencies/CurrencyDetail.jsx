@@ -8,11 +8,13 @@ import {ImageField, inputTextStyle} from "../../components/forms";
 import {ModalDelete} from "../../components/ModalDelete";
 import { ToastContainer, toast } from 'react-toastify';
 import { ComeBackLink } from "../../components/ComeBackLink";
+import { useMessageProvider } from "../../utils/MessageContext";
 
 export  function CurrencyDetail() {
   let { id } = useParams();
   const navigate = useNavigate();
   const endpoint = "currencies/" + id;
+  const {addMessage} = useMessageProvider();
   
   const {data:currency, loading, error} = useFetchGet(endpoint)
   const { register, handleSubmit, setValue, control, formState: { errors, isSubmitting } } = useForm();
@@ -24,6 +26,7 @@ export  function CurrencyDetail() {
     const response = await fetchPostForm(endpoint, formData);
 
     if (!response.errors) {
+      addMessage("Moneda actualizada con exito!");
       navigate("../");
     }
 
@@ -36,6 +39,7 @@ export  function CurrencyDetail() {
         throw new Error();
       }
 
+      addMessage("Moneda eliminada con exito!");
       navigate("../");
     } catch(err) {
       toast.error("No fue posible eliminar la moneda");

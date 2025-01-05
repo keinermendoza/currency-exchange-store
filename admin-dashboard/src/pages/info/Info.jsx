@@ -1,14 +1,15 @@
 import {  useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import { CardAction, CardFooter, PrimaryButton } from "../../components/ui";
 import { useFetchGet} from '../../hooks/fetcher';
 import { fetchPost } from "../../services/fetchPost";
+import { displayResponseMessages } from "../../lib/utils";
 
 export function Info() {
 const endpoint = "infosite";
 const {data:siteInfo, error} = useFetchGet(endpoint);
-const { register, handleSubmit, setValue, setError, clearErrors, control, formState: { errors, isSubmitting } } = useForm();
+const { register, handleSubmit, setValue, setError, formState: { errors, isSubmitting } } = useForm();
 
 useEffect(() => {
   if (siteInfo) {
@@ -18,10 +19,8 @@ useEffect(() => {
     setValue( "phone_number", siteInfo.phone_number); 
     setValue( "whatsapp_number", siteInfo.whatsapp_number); 
     setValue( "whatsapp_message", siteInfo.whatsapp_message); 
-
   }
 }, [siteInfo]);
-
 
 const onSubmit = async (data) => {
   let method = "POST";
@@ -30,27 +29,7 @@ const onSubmit = async (data) => {
   }
 
   const response = await fetchPost(endpoint, data, method);
-  if (response.errors) {
-    const dataKeys = Object.keys(data);
-    showErrors(dataKeys, response.errors)
-  } else {
-    console.log(response)
-    if (response.message) {
-      toast.success(response.message);
-    }
-  }
-}
-
-
-function showErrors(keys, errorObj) {
-  Object.keys(errorObj).forEach(key => {
-    if(keys.includes(key)) {
-      console.log(key, errorObj[key])
-      setError(key, { type: "server", message: errorObj[key] })
-    } else {
-      toast.error(errorObj[key]);
-    }
-  });
+  displayResponseMessages(response, data, setError);
 }
 
 

@@ -7,11 +7,14 @@ import { ExchangeCurrencyDropdown } from "../../components/forms";
 import { useFetchGet} from '../../hooks/fetcher';
 import { fetchPost } from "../../services/fetchPost";
 import { ComeBackLink } from "../../components/ComeBackLink";
+import { useMessageProvider } from "../../utils/MessageContext";
+
 
 export  function ExchangeCreate() {
   const [baseCurrency, setBaseCurrency] = useState(null); // object
   const [targetCurrency, setTargetCurrency] = useState(null); // object
   const navigate = useNavigate();
+  const {addMessage} = useMessageProvider();
   
   const {data:currencyOptions} = useFetchGet("currencies");
   const { register, handleSubmit, setValue, setError, clearErrors, control, formState: { errors, isSubmitting } } = useForm();
@@ -28,6 +31,7 @@ export  function ExchangeCreate() {
           toast.success(response.message);
     
         }
+        addMessage("Tipo de Cambio creado con exito!");
         navigate("../");
 
     }
