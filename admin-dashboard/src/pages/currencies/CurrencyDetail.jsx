@@ -135,8 +135,8 @@ export  function CurrencyDetail() {
 
       <div className="mt-12 w-full max-w-4xl flex flex-col sm:flex-row gap-4 justify-between items-center">
         <div className="w-full max-w-lg">
-          <p>Eliminar Moneda</p>
-          <p>Recuerda que para eliminar esta moneda debes primero eliminar cualquier Cambio en el que la hayas registrado.</p>
+          <p className="text-lg mb-2">Eliminar Moneda</p>
+          <p>Al eliminar esta moneda también se eliminará cualquier <b>Tipo de Cambio</b> en el que estés usando esta moneda</p>
         </div>
 
         <ModalDelete 
@@ -144,7 +144,8 @@ export  function CurrencyDetail() {
 
         deleteButtonText="Eliminar Moneda"
         deleteCallback={deleteCurrency}>
-          <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete this product?</h3>
+          <h3 className="mb-2 text-lg text-gray-500 dark:text-gray-400">Estás seguro de que quieres eliminar esta Moneda?</h3>
+          <p className="mb-5 text-left  text-sm px-2">Recuerda que al eliminar esta moneda tambien se eliminarán todos los <b>Tipos de Cambio</b> en la que esta aparezca.</p>
         </ModalDelete>
       </div>
 

@@ -1,2 +1,2 @@
-ALTER TABLE exchangerate 
-ADD COLUMN is_default TINYINT(1) DEFAULT 0;
+-- ALTER TABLE exchangerate 
+-- ADD COLUMN is_default TINYINT(1) DEFAULT 0;

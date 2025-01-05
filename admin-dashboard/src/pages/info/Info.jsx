@@ -63,7 +63,7 @@ return (
     <CardAction extraClass="gap-4">
 
       <div>
-        <label htmlFor="domain" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">*Dominio web</label>
+        <label htmlFor="domain" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Dominio web</label>
         {errors.domain && <p className="text-red-800 font-medium">{errors.domain.message}</p>}
           
           <input
@@ -112,7 +112,7 @@ return (
 
 
         <div>
-          <label htmlFor="whatsapp_number" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">*Numero de Whatsapp</label>
+          <label htmlFor="whatsapp_number" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Numero de Whatsapp</label>
           {errors.whatsapp_number && <p className="text-red-800 font-medium">{errors.whatsapp_number.message}</p>}
           
           <input

@@ -8,12 +8,17 @@ class OptionalValidator {
         $this->data = $data;
     }
 
-    public function validateOptionalField(string $key, callable $test, string $errorMessage) {
+    public function validateOptionalField(string $key, callable $test, string $errorMessage, callable | null $proccessValue = null) {
         if (array_key_exists($key, $this->data)) {
 
             if (trim($this->data[$key] != "")) {
                 if ($test($this->data[$key])) {
-                    return htmlspecialchars($this->data[$key]);
+                    if ($proccessValue) {
+                        return $proccessValue($this->data[$key]);
+                    } else {
+                        return htmlspecialchars($this->data[$key]);
+                    }
+
                 } else {
                     $this->addError($key, $errorMessage);
                 }

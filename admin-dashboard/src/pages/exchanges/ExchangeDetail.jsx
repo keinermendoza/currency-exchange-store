@@ -179,16 +179,16 @@ export  function ExchangeDetail() {
 
       <div className="mt-12 w-full max-w-4xl flex flex-col sm:flex-row gap-4 justify-between items-center">
         <div className="w-full max-w-lg">
-          <p>Eliminar Moneda</p>
-          <p>Recuerda que para eliminar esta moneda debes primero eliminar cualquier Cambio en el que la hayas registrado.</p>
+          <p className="text-lg mb-2  ">Eliminar Cambio</p>
+          <p>Al eliminar el tipo de cambio éste desaparecerá de la página publica de tu sitio.</p>
         </div>
 
         <ModalDelete 
           isDisabled={isSubmitting}
 
-        deleteButtonText="Eliminar Moneda"
+        deleteButtonText="Eliminar Cambio"
         deleteCallback={deleteExchange}>
-          <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete this product?</h3>
+          <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Estás seguro de que quieres eliminar este Tipo de Cambio?</h3>
         </ModalDelete>
       </div>
 

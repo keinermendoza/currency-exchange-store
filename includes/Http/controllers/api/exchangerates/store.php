@@ -29,13 +29,16 @@ $rate = bcdiv($data["target_amount"], $data["base_amount"], 6);
 
 $db = App::resolve(Database::class);
 
+$is_default = !$db->query("SELECT * FROM exchangerate LIMIT 1")->fetch();
+
 try {
-    $db->query("INSERT INTO exchangerate(rate, base_currency_id, target_currency_id, base_amount, target_amount) VALUES(:rate, :base_currency, :target_currency, :base_amount, :target_amount)", [
+    $db->query("INSERT INTO exchangerate(rate, base_currency_id, target_currency_id, base_amount, target_amount, is_default) VALUES(:rate, :base_currency, :target_currency, :base_amount, :target_amount, :is_default)", [
         "rate" => $rate,
         "base_currency" => $data["base_currency"],
         "target_currency" => $data["target_currency"],
         "base_amount" => $data["base_amount"],
         "target_amount" => $data["target_amount"],
+        "is_default" => (int)$is_default  
     ]);
 } catch (\PDOException $e) {
     http_response_code(400);

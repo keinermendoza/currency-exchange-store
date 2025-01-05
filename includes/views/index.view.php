@@ -9,7 +9,7 @@
 <main class="p-4">
 
 
-    <?php if(isset($infosite["whatsapp_number"])) : ?>
+    <?php if($infosite["whatsapp_number"] ?? false) : ?>
         <p class="fixed z-20 transition-transform duration-200 hover:scale-110 bottom-10 right-10">
             <a class="flex items-center p-4 gap-4 rounded-full bg-[#3edf5b] text-white" 
             target="_blank" href="https://wa.me/<?= $infosite["whatsapp_number"] ?>?text=<?= $encoded_message ?>" aria-label="Realizar envio de dinero">
@@ -44,7 +44,7 @@
         </div>
     
 
-        <?php if(isset($infosite["whatsapp_number"])) : ?>
+        <?php if($infosite["whatsapp_number"] ?? false) : ?>
             
             <a  target="_blank" href="https://wa.me/<?= $infosite["whatsapp_number"] ?>?text=<?= $encoded_message ?>" 
             aria-label="Realizar envio de dinero" 
@@ -149,7 +149,7 @@
                     <p class="text-sm">Valor Actualizado el <span id="updated_at"></span></p>
                 </div>
 
-                <?php if(isset($infosite["whatsapp_number"])) : ?>
+                <?php if($infosite["whatsapp_number"] ?? false) : ?>
                 <p class="w-fit mt-6">
                     <a class="flex items-center p-4 gap-4 rounded-full bg-green-800 text-white" 
                     target="_blank" href="https://wa.me/<?= $infosite["whatsapp_number"] ?>?text=<?= $encoded_message ?>" aria-label="Realizar envio de dinero">
