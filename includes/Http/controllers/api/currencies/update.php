@@ -27,7 +27,7 @@ if(!$validator->validate()) {
     exit();
 }
 
-
+$filename = null;
 if (isset($_FILES["image"])) {
     $filename = handleUploadImage("image", $validator);
     if (!$filename) {
@@ -37,13 +37,31 @@ if (isset($_FILES["image"])) {
     }
 } 
 
-$db->query("UPDATE currency SET name = :name, symbol = :symbol, image = :image WHERE id = :id", [
+$newData = [
     "name" => $_POST["name"],
     "symbol" => $_POST["symbol"],
     "image" => $filename ?? $currency["image"],
     "id" => $id
-]);
+];
 
-echo json_encode(["message" => "Moneda actualizada con exito"]);
-http_response_code(200);
+try {
+    $db->query("UPDATE currency SET name = :name, symbol = :symbol, image = :image WHERE id = :id", $newData);
+
+    if ($filename) {
+        $newData["image"] = "/".$newData["image"];
+    }
+    
+    echo json_encode([
+        "message" => "Moneda actualizada con exito!",
+        "data" => $newData 
+    ]);
+    http_response_code(200);
+    exit();
+} catch(\PDOException $e) {
+    http_response_code(400);
+    echo json_encode([
+        "errors" => "No fue posible actualizar la moneda",
+    ]);
+}
+
 exit();

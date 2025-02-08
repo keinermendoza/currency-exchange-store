@@ -154,11 +154,6 @@ function transformDate(DateISO) {
                 }
             });
         });
-        
-        
-            // update selectedExchange
-            // call fillReferenceData()
-            // close modal
-
+    
     })
 </script>

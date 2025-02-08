@@ -19,19 +19,26 @@ const ExchangerateContext = createContext();
 
 export const ExchangerateProvider = ({ children }) => {
   const [exchangerates, setExchangerates] = useState([]);
+  
+  // Función para cargar datos desde la API
+  const fetchExchangerates = async () => {
+    try {
+      const { data } = await api.get("exchangerates");
+      setExchangerates(data);
+    } catch (error) {
+      console.error("Error al cargar intercambios:", error);
+    }
+  };
 
-  // Cargar datos desde la API al iniciar
+  // Cargar datos al iniciar
   useEffect(() => {
-    const fetchExchangerates = async () => {
-      try {
-        const { data } = await api.get("exchangerates");
-        setExchangerates(data);
-      } catch (error) {
-        console.error("Error al cargar intercambios:", error);
-      }
-    };
     fetchExchangerates();
   }, []);
+
+  // Nueva función para recargar datos manualmente
+  const refetchExchangerates = () => {
+    fetchExchangerates();
+  };
 
   const getExchangerate = (id) => {
     return exchangerates.filter(Exchangerate => Exchangerate.id == id)[0]
@@ -65,7 +72,7 @@ export const ExchangerateProvider = ({ children }) => {
   }
 
   return (
-    <ExchangerateContext.Provider value={{ exchangerates, getExchangerate, addExchangerate, removeExchangerate, updateExchangerate, partialUpdateExchangerate }}>
+    <ExchangerateContext.Provider value={{ exchangerates, getExchangerate, addExchangerate, removeExchangerate, updateExchangerate, partialUpdateExchangerate, refetchExchangerates }}>
       {children}
     </ExchangerateContext.Provider>
   );

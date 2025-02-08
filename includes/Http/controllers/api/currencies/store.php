@@ -15,23 +15,54 @@ if(!$validator->validate()) {
     exit();
 }
 
-if (isset($_FILES["image"])) {
-    $filename = handleUploadImage("image", $validator);
-    if (!$filename) {
-        http_response_code(400);
-        echo json_encode(["errors" => $validator->getErrors()]);
-        exit();
-    }
-} 
+if (!isset($_FILES["image"])) {
+    http_response_code(404);
+    echo json_encode([
+        "errors" => [
+            "image" => "debe proporcionar una imagen para la moneda"
+        ]
+    ]);
+    exit();
+}
+
+$filename = handleUploadImage("image", $validator);
+if (!$filename) {
+    http_response_code(400);
+    echo json_encode(["errors" => $validator->getErrors()]);
+    exit();
+}
 
 $db = App::resolve(Database::class);
-$db->query("INSERT INTO currency(name, symbol, image) VALUES(:name, :symbol, :image)", [
-    "name" => $_POST["name"],
-    "symbol" => $_POST["symbol"],
-    "image" => $filename,
-]);
+
+try {
+    $db->query("INSERT INTO currency(name, symbol, image) VALUES(:name, :symbol, :image)", [
+        "name" => $_POST["name"],
+        "symbol" => $_POST["symbol"],
+        "image" => $filename,
+    ]);
+    
+    $insertedId = $db->lastId();
 
 
-http_response_code(200);
-echo json_encode(["message" => "Moneda registrada con exito"]);
+    $newCurrency = $db->query("SELECT * FROM currency WHERE id = :id", [
+        "id" => $insertedId
+    ])->fetch();
+
+    $newCurrency["image"] = "/".$newCurrency["image"];
+
+    http_response_code(201);
+    echo json_encode([
+        "message" => "moneda " . $newCurrency['name'] . " registrada con exito!",
+        "data" => $newCurrency
+    ]);
+    exit();
+
+
+} catch(\PDOException $e) {
+    http_response_code(400);
+    echo json_encode([
+        "errors" => "No fue posible registrar la moneda",
+    ]);
+}
+
 exit();

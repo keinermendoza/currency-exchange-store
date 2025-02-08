@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, NavLink, useNavigate } from "react-router";
 import { useForm, Controller } from "react-hook-form";
-import { useFetchGet} from '../../hooks/fetcher';
+// import { useFetchGet} from '../../hooks/fetcher';
 import { fetchPost } from "../../services/fetchPost";
 import { CardAction, CardFooter, PrimaryButton } from "../../components/ui";
 import { transformDate } from "../../lib/utils";
@@ -11,6 +11,7 @@ import {ModalDelete} from "../../components/ModalDelete";
 import { ComeBackLink } from "../../components/ComeBackLink";
 import { useCurrency } from "../../contexts/CurrencyContext";
 import { useExchangerate } from "../../contexts/ExchangerateContext";
+import { displayResponseMessages } from "../../lib/utils";
 
 export  function ExchangeDetail() {
   const { id } = useParams();
@@ -22,9 +23,10 @@ export  function ExchangeDetail() {
   const navigate = useNavigate();
   
   // const {data:exchange, loading, error} = useFetchGet(endpoint)
-  const {exchangerate, partialUpdateExchangerate, removeExchangerate} = useExchangerate()
-  const { register, handleSubmit, setValue, control, formState: { errors, isSubmitting } } = useForm();
+  const {getExchangerate, partialUpdateExchangerate, removeExchangerate, refetchExchangerates} = useExchangerate()
+  const { register, handleSubmit, setValue, setError, control, formState: { errors, isSubmitting } } = useForm();
   
+  const exchangerate = getExchangerate(id);
   // const handlePreselect
 
   useEffect(() => {
@@ -49,6 +51,7 @@ export  function ExchangeDetail() {
           if (!resp.ok) {
             throw new Error();
           }
+          refetchExchangerates();
           toast.success("Tipo de cambio elegido como primero");
 
         }).catch(err => toast.error("No fue posible elegir el tipo de cambio como primero"))
@@ -60,39 +63,43 @@ export  function ExchangeDetail() {
 
   const onSubmit = async (data) => {
     const response = await fetchPost(endpoint, data, "PUT");
+    displayResponseMessages(response, data, setError)
+    
     if (!response.errors) {
-       toast.success("Cambio actualizado con exito!");
+      partialUpdateExchangerate(id, data)
       navigate("../");
     }
   }
 
   const deleteExchange = async () => {
-    try {
-      const response = await fetch("/api/" + endpoint, {method: "DELETE"});
-      if (!response.ok) {
-        throw new Error();
-      }
+    const response = await fetchPost(endpoint, null, "DELETE");
+    displayResponseMessages(response, {}, setError)
 
-       toast.success("Cambio eliminado con exito!")
-
+    if (!response.errors) {
       navigate("../");
-    } catch(err) {
-      toast.error("No fue posible eliminar el tipo de cambio");
+      removeExchangerate(id);
     }
   }
 
-  if (loading) {
-      return <div>Cargando...</div>;
-  }
-  if (error) {
-      return <div>Error: {error}</div>;
-  }
+  //   try {
+  //     const response = await fetch("/api/" + endpoint, {method: "DELETE"});
+  //     if (!response.ok) {
+  //       throw new Error();
+  //     }
+
+  //      toast.success("Cambio eliminado con exito!")
+
+  //     navigate("../");
+  //   } catch(err) {
+  //     toast.error("No fue posible eliminar el tipo de cambio");
+  //   }
+  // }
 
   return (
     <section>
       <ComeBackLink />
       
-      <h1 className="text-3xl font-medium">Editando cambio {exchange?.name}</h1>
+      <h1 className="text-3xl font-medium">Editando cambio {exchangerate?.name}</h1>
 
       <div className={`max-w-xl my-4 p-2 border border-gray-200 rounded dark:border-gray-700  ${isUpdatingPreselected ? 'bg-gray-300 dark:bg-gray-600' : ''}`}>
         <div className="flex items-center">
@@ -106,7 +113,7 @@ export  function ExchangeDetail() {
       </div>
       
       <form className="max-w-xl" onSubmit={handleSubmit(onSubmit)} >
-        {exchange &&
+        {exchangerate &&
       <CardAction 
         extraClass={`items-center gap-4 p-6 ${isPreselected ? 'drop-shadow-md shadow-md shadow-indigo-600' : ''} `}>
         
@@ -118,8 +125,8 @@ export  function ExchangeDetail() {
                   {errors.base_amount && <p className="text-red-800 font-medium">{errors.base_amount.message}</p>}
                   <div className="flex">
                     <div className="flex gap-3  items-center p-3 text-sm text-gray-900 bg-gray-200 border rounded-e-0 border-gray-300 border-e-0 rounded-s-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                    <AvatarCircle image={exchange.base_image} />
-                      {exchange.base_symbol}
+                    <AvatarCircle image={exchangerate.base_image} />
+                      {exchangerate.base_symbol}
                     </div>
                     <input 
                     type="number" step="0.000001"
@@ -151,8 +158,8 @@ export  function ExchangeDetail() {
                   {errors.target_amount && <p className="text-red-800 font-medium">{errors.target_amount.message}</p>}
                   <div className="flex">
                     <div className="flex gap-3  items-center p-3 text-sm text-gray-900 bg-gray-200 border rounded-e-0 border-gray-300 border-e-0 rounded-s-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                    <AvatarCircle image={exchange.target_image} />
-                      {exchange.target_symbol}
+                    <AvatarCircle image={exchangerate.target_image} />
+                      {exchangerate.target_symbol}
                     </div>
                     <input 
                     type="number" step="0.000001"
@@ -170,7 +177,7 @@ export  function ExchangeDetail() {
                 </div>
 
               </div>
-              <span className=" text-gray-500 dark:text-gray-400">Valor Actualizado el {transformDate(exchange.updated_at)}</span>
+              <span className=" text-gray-500 dark:text-gray-400">Valor Actualizado el {transformDate(exchangerate.updated_at)}</span>
               <CardFooter>
                   <PrimaryButton
                     isDisabled={isSubmitting}

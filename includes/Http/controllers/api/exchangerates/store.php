@@ -40,14 +40,49 @@ try {
         "target_amount" => $data["target_amount"],
         "is_default" => (int)$is_default  
     ]);
+
+    $insertedId = $db->lastId();
+
+    # geting full joined data
+    $sql = require base_path("Http/controllers/api/exchangerates/sql.php");
+    $sql .= " WHERE exchangerate.id = $insertedId";
+    $newExchangerate = $db->query($sql)->fetch();
+
+    # appending missed slash to images
+    if (isset($newExchangerate["base_image"])) {
+        $newExchangerate["base_image"] = "/" . $newExchangerate["base_image"];
+    }
+    if (isset($newExchangerate["target_image"])) {
+        $newExchangerate["target_image"] = "/" . $newExchangerate["target_image"];
+    }
+
+    http_response_code(201);
+    echo json_encode([
+        "message" => "Tipo de cambio registrado con exito!",
+        "data" => $newExchangerate
+    ]);
+
+    exit();
+
+
 } catch (\PDOException $e) {
     http_response_code(400);
     $validator->addError("base_currency", "ya existe un tipo de cambio con estas monedas");
-    $validator->addError("error", "ya existe un tipo de cambio con estas monedas");
 
     echo json_encode(["errors" => $validator->getErrors()]); 
     exit();
 }
 
-http_response_code(200);
-echo json_encode($data);
+$insertedId = $db->lastId();
+
+$newExchangerate = $db->query("SELECT * FROM currency WHERE id = :id", [
+    "id" => $insertedId
+])->fetch();
+
+http_response_code(201);
+echo json_encode([
+    "message" => "Tipo de cambio registrado con exito!",
+    "data" => $newExchangerate
+]);
+
+exit();

@@ -22,6 +22,7 @@ export default defineConfig({
       '@tailwindConfig',
     ]
   }, 
+  // base: "/static/",
   build: {
     manifest: "manifest.json",
     commonjsOptions: {
