@@ -1,62 +1,43 @@
 import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
-import { toast } from 'react-toastify';
 import { CardAction, CardFooter, PrimaryButton } from "../../components/ui";
 import { ExchangeCurrencyDropdown } from "../../components/forms";
-import { useFetchGet} from '../../hooks/fetcher';
 import { fetchPost } from "../../services/fetchPost";
 import { ComeBackLink } from "../../components/ComeBackLink";
+import { useCurrency } from "../../contexts/CurrencyContext";
+import { useExchangerate } from "../../contexts/ExchangerateContext";
 
+import {displayResponseMessages} from "../../lib/utils";
 
 export  function ExchangeCreate() {
   const [baseCurrency, setBaseCurrency] = useState(null); // object
   const [targetCurrency, setTargetCurrency] = useState(null); // object
   const navigate = useNavigate();
+  const {currencies, getCurrency} = useCurrency();
+  const {addExchangerate} = useExchangerate();
   
-  const {data:currencyOptions} = useFetchGet("currencies");
   const { register, handleSubmit, setValue, setError, clearErrors, control, formState: { errors, isSubmitting } } = useForm();
   
   const onSubmit = async (data) => {
     const response = await fetchPost("exchangerates", data);
 
-    if (response.errors) {
-      const dataKeys = Object.keys(data);
-      showErrors(dataKeys, response.errors)
-    } else {
+    displayResponseMessages(response, data, setError)
     
-        if (response.message) {
-          toast.success(response.message);
     
-        }
-        toast.success("Tipo de Cambio creado con exito!");
-        navigate("../");
-
+    if (!response.errors) {
+      navigate("../");
+      addExchangerate(response.data);
     }
   }
 
-  function showErrors(keys, errorObj) {
-    Object.keys(errorObj).forEach(key => {
-      if(keys.includes(key)) {
-        console.log(key, errorObj[key])
-        setError(key, { type: "server", message: errorObj[key] })
-      } else {
-        toast.error(errorObj[key]);
-      }
-    });
-  }
-
-  const getCurrencyById = (selectedId) => {
-    const resultList = currencyOptions.filter((currency) => currency.id == selectedId)
-    return resultList[0];
-  }
-
+ 
   const handleSelectBaseCurrency = (id) => {
-    setBaseCurrency(getCurrencyById(id));
+    setBaseCurrency(getCurrency(id));
   }
   
   const handleSelectTargetCurrency = (id) => {
-    setTargetCurrency(getCurrencyById(id));
+    setTargetCurrency(getCurrency(id));
   }
 
   useEffect(() => {
@@ -87,7 +68,7 @@ export  function ExchangeCreate() {
           <p className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Moneda Base</p>
           {errors.base_currency && <p className="text-red-800 font-medium">{errors.base_currency.message}</p>}
           <ExchangeCurrencyDropdown
-            options={currencyOptions}
+            options={currencies}
             selectedOption={baseCurrency}
             handleChange={handleSelectBaseCurrency}
           />
@@ -121,7 +102,7 @@ export  function ExchangeCreate() {
           <p className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Moneda de Destino</p>
           {errors.target_currency && <p className="text-red-800 font-medium">{errors.target_currency.message}</p>}
           <ExchangeCurrencyDropdown
-            options={currencyOptions}
+            options={currencies}
             selectedOption={targetCurrency}
             handleChange={handleSelectTargetCurrency}
           />

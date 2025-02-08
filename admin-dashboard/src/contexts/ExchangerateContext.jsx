@@ -56,8 +56,16 @@ export const ExchangerateProvider = ({ children }) => {
     );
   };
 
+  const partialUpdateExchangerate = (id, newValuesObj) => {
+    setExchangerates(prevExchangerates =>
+      prevExchangerates.map(exchangerate =>
+        exchangerate.id == id ? {...exchangerate, ...newValuesObj} : exchangerate
+      )
+    );
+  }
+
   return (
-    <ExchangerateContext.Provider value={{ exchangerates, getExchangerate, addExchangerate, removeExchangerate, updateExchangerate }}>
+    <ExchangerateContext.Provider value={{ exchangerates, getExchangerate, addExchangerate, removeExchangerate, updateExchangerate, partialUpdateExchangerate }}>
       {children}
     </ExchangerateContext.Provider>
   );

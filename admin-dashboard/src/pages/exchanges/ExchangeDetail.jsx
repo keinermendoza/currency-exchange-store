@@ -9,6 +9,8 @@ import AvatarCircle from "../../components/ui/AvatarCircle";
 import {  toast } from 'react-toastify';
 import {ModalDelete} from "../../components/ModalDelete";
 import { ComeBackLink } from "../../components/ComeBackLink";
+import { useCurrency } from "../../contexts/CurrencyContext";
+import { useExchangerate } from "../../contexts/ExchangerateContext";
 
 export  function ExchangeDetail() {
   const { id } = useParams();
@@ -19,19 +21,20 @@ export  function ExchangeDetail() {
   const endpoint = "exchangerates/" + id;
   const navigate = useNavigate();
   
-  const {data:exchange, loading, error} = useFetchGet(endpoint)
+  // const {data:exchange, loading, error} = useFetchGet(endpoint)
+  const {exchangerate, partialUpdateExchangerate, removeExchangerate} = useExchangerate()
   const { register, handleSubmit, setValue, control, formState: { errors, isSubmitting } } = useForm();
   
   // const handlePreselect
 
   useEffect(() => {
-    if (exchange) {
-      setValue( "base_amount", parseFloat(exchange.base_amount)); 
-      setValue( "target_amount", parseFloat(exchange.target_amount));
-      setIsPreselected(Boolean(exchange.is_default));
+    if (exchangerate) {
+      setValue( "base_amount", parseFloat(exchangerate.base_amount)); 
+      setValue( "target_amount", parseFloat(exchangerate.target_amount));
+      setIsPreselected(Boolean(exchangerate.is_default));
     }
 
-  }, [exchange]);
+  }, [exchangerate]);
 
   const handleChangePreselected = () => {
     if (!isPreselected) {
