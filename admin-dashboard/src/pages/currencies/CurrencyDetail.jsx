@@ -1,23 +1,23 @@
 import { useEffect } from "react";
 import { useParams, NavLink, useNavigate } from "react-router";
 import { useForm, Controller } from "react-hook-form";
-import { useFetchGet} from '../../hooks/fetcher';
+import { useCurrency } from "../../contexts/CurrencyContext";
 import { fetchPostForm } from "../../services/fetchPost";
 import { CardAction, CardFooter, PrimaryButton } from "../../components/ui";
 import {ImageField, inputTextStyle} from "../../components/forms";
 import {ModalDelete} from "../../components/ModalDelete";
-import { ToastContainer, toast } from 'react-toastify';
+import { fetchPost } from "../../services/fetchPost";
 import { ComeBackLink } from "../../components/ComeBackLink";
-import { useMessageProvider } from "../../utils/MessageContext";
+import {displayResponseMessages} from "../../lib/utils";
 
 export  function CurrencyDetail() {
   let { id } = useParams();
   const navigate = useNavigate();
+  const {getCurrency, removeCurrency} = useCurrency();
+  const currency = getCurrency(id)
   const endpoint = "currencies/" + id;
-  const {addMessage} = useMessageProvider();
   
-  const {data:currency, loading, error} = useFetchGet(endpoint)
-  const { register, handleSubmit, setValue, control, formState: { errors, isSubmitting } } = useForm();
+  const { register, handleSubmit, setValue, setError, control, formState: { errors, isSubmitting } } = useForm();
   
   const onSubmit = async (data) => {
     const newData = {...data, "_method":"PUT"}
@@ -25,26 +25,23 @@ export  function CurrencyDetail() {
     Object.entries(newData).forEach(([key, value]) => formData.append(key, value));
     const response = await fetchPostForm(endpoint, formData);
 
+    displayResponseMessages(response, data, setError);
+
     if (!response.errors) {
-      addMessage("Moneda actualizada con exito!");
       navigate("../");
     }
 
   }
 
   const deleteCurrency = async () => {
-    try {
-      const response = await fetch("/api/" + endpoint, {method: "DELETE"});
-      if (!response.ok) {
-        throw new Error();
+      const response = await fetchPost(endpoint, null, "DELETE");
+      displayResponseMessages(response, {}, setError);
+      
+      if (!response.errors) {
+        removeCurrency(id);
+        navigate("../");
       }
-
-      addMessage("Moneda eliminada con exito!");
-      navigate("../");
-    } catch(err) {
-      toast.error("No fue posible eliminar la moneda");
     }
-  }
 
   // update fields when data is loaded  
   useEffect(() => {
@@ -55,16 +52,8 @@ export  function CurrencyDetail() {
   }, [currency]);
 
 
-  if (loading) {
-      return <div>Cargando...</div>;
-  }
-  if (error) {
-      return <div>Error: {error}</div>;
-  }
-
   return (
     <section>
-      <ToastContainer />
       <ComeBackLink />
 
       <p>

@@ -13,6 +13,7 @@ export function transformDate(DateISO) {
 }
 
 export function displayResponseMessages(response, data, setError) {
+  console.log(response)
     if (response.errors) {
       const dataKeys = Object.keys(data);
       displayErrors(setError, dataKeys, response.errors)

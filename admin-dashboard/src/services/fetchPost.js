@@ -1,7 +1,7 @@
 const BASE_URL = '/api/';
 const defaultErrorMessage = "Ocurrió un error, si el error continúa por favor recarga la página";
 
-export async function fetchPostForm(endpoint, body, method="POST") {
+export async function fetchPostForm(endpoint, body=null, method="POST") {
   try {
     const response = await fetch(`${BASE_URL}${endpoint}`, {
       method: method,
@@ -19,6 +19,7 @@ export async function fetchPostForm(endpoint, body, method="POST") {
 
     // returning data
     const result = await response.json();
+
     return result;
 
   }
@@ -28,7 +29,7 @@ export async function fetchPostForm(endpoint, body, method="POST") {
   }
 }
 
-export async function fetchPost(endpoint, payload, method = "POST") {
+export async function fetchPost(endpoint, payload=null, method = "POST") {
   try {
     const response = await fetch(`${BASE_URL}${endpoint}`, {
       method: method,

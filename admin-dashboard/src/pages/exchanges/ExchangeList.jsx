@@ -1,40 +1,17 @@
-import { useEffect } from "react";
 import { useNavigate, NavLink } from "react-router";
-import { useFetchGet } from '../../hooks/fetcher';
+import { useExchangerate } from "../../contexts/ExchangerateContext";
 import { CurrencyRectangle } from "../../components/CurrencyRectangle";
 import { Loading, CardAction, CardFooter, PrimaryButton } from "../../components/ui";
+
 import { primaryButtonStyle, imageCss } from "../../components/forms";
 import { transformDate } from "../../lib/utils";
-import { useMessageProvider } from "../../utils/MessageContext";
-import { toast, ToastContainer } from "react-toastify";
 
 export function ExchangeList() {
     const navigate = useNavigate();
-    const {data, loading, error} = useFetchGet("exchangerates");
-    const {getMessage, clearMessage} = useMessageProvider();
-
-    useEffect(() => {
-      const message = getMessage(); 
-
-      if (message) {
-        toast.success(message, {
-          onClose: clearMessage
-        });
-      }
-    }, [data]);
-    
- 
-    if (loading) {
-        return <Loading/>;
-    }
-    if (error) {
-        return <div>Error: {error}</div>;
-    }
+    const {exchangerates} = useExchangerate();
 
     return (
         <section>
-          <ToastContainer />
-
             <div className="flex flex-col items-center justify-start sm:flex-row sm:justify-between gap-4">
                 <h1 className='text-3xl font-medium'>Tipos de Cambio</h1>
                 <NavLink to={'registrar'} className={primaryButtonStyle}>
@@ -42,7 +19,7 @@ export function ExchangeList() {
                 </NavLink>
             </div>
             <div className='mt-4 flex flex-wrap justify-start gap-4'>
-            {data?.map(exchangerate => (
+            {exchangerates?.map(exchangerate => (
                 <CardAction 
                     key={exchangerate.id}
                     extraClass={`items-center gap-4 p-6 max-w-sm ${exchangerate.is_default ? 'drop-shadow-md shadow-md shadow-indigo-600' : ''} `}>

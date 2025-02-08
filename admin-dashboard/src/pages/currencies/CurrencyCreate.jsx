@@ -1,27 +1,29 @@
 import { NavLink, useNavigate } from "react-router";
 import { useForm, Controller } from "react-hook-form";
+import { useCurrency } from "../../contexts/CurrencyContext";
 import { CardAction, CardFooter, PrimaryButton } from "../../components/ui";
 import {ImageField, inputTextStyle} from "../../components/forms";
 import { fetchPostForm } from "../../services/fetchPost";
 import { ComeBackLink } from "../../components/ComeBackLink";
-import { useMessageProvider } from "../../utils/MessageContext";
+import {toast} from "react-toastify";
+import {displayResponseMessages} from "../../lib/utils";
 
-export  function CurrencyCreate() {
+export function CurrencyCreate() {
   const endpoint = "currencies";
   const navigate = useNavigate();
-  const { register, handleSubmit, setValue, control, formState: { errors, isSubmitting } } = useForm();
-  const {addMessage} = useMessageProvider();
+  const {addCurrency} = useCurrency()
+  const { register, handleSubmit, setValue, setError, control, formState: { errors, isSubmitting } } = useForm();
 
   
   const onSubmit = async (data) => {
-    console.log("data", data);
-
     const formData = new FormData();
     Object.entries(data).forEach(([key, value]) => formData.append(key, value));
     const response = await fetchPostForm(endpoint, formData);
     
+    displayResponseMessages(response, data, setError)
+
     if (!response.errors) {
-      addMessage("Moneda creada con exito!");
+      addCurrency(response.data)
       navigate("../");
     }
   }
@@ -70,7 +72,8 @@ export  function CurrencyCreate() {
      
         {/* https://claritydev.net/blog/react-hook-form-multipart-form-data-file-uploads */}
         {/* https://react-hook-form.com/docs/usecontroller/controller */}
-
+          
+        {errors.image && <p className="text-red-800 font-medium">{errors.image.message}</p>}
           <Controller
             control={control}
             name={"image"}

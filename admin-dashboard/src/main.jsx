@@ -2,7 +2,8 @@ import React, {Suspense, lazy} from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router } from 'react-router-dom';
 import ThemeProvider from './utils/ThemeContext';
-import MessageProvider from './utils/MessageContext';
+import {CurrencyProvider} from "./contexts/CurrencyContext";
+import {ExchangerateProvider} from "./contexts/ExchangerateContext";
 
 import './css/style.css';
 
@@ -13,11 +14,13 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
       <Router>
         <ThemeProvider>
-          <MessageProvider>
-            <Suspense fallback={<Loading />}>
-              <App />
-            </Suspense>
-          </MessageProvider>
+          <Suspense fallback={<Loading />}>
+            <CurrencyProvider>
+              <ExchangerateProvider>
+                <App />
+              </ExchangerateProvider>
+            </CurrencyProvider>
+          </Suspense>
         </ThemeProvider>
       </Router>
   </React.StrictMode>
