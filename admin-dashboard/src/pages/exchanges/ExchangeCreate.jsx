@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router";
-import { useForm } from "react-hook-form";
+import { useForm, Controller, useWatch } from "react-hook-form";
 import { CardAction, CardFooter, PrimaryButton } from "../../components/ui";
 import { ExchangeCurrencyDropdown } from "../../components/forms";
 import { fetchPost } from "../../services/fetchPost";
@@ -11,15 +11,20 @@ import { useExchangerate } from "../../contexts/ExchangerateContext";
 import {displayResponseMessages} from "../../lib/utils";
 
 export  function ExchangeCreate() {
+  const [rate, setRate] = useState();
   const [baseCurrency, setBaseCurrency] = useState(null); // object
   const [targetCurrency, setTargetCurrency] = useState(null); // object
   const navigate = useNavigate();
   const {currencies, getCurrency} = useCurrency();
   const {addExchangerate} = useExchangerate();
   
-  const { register, handleSubmit, setValue, setError, clearErrors, control, formState: { errors, isSubmitting } } = useForm();
+  const { register, handleSubmit, setValue, setError, clearErrors, watch, control, formState: { errors, isSubmitting } } = useForm({defaultValues: {
+    "base_amount": 0,
+    "target_amount": 0
+  }});
   
   const onSubmit = async (data) => {
+    data.rate = rate;  
     const response = await fetchPost("exchangerates", data);
 
     displayResponseMessages(response, data, setError)
@@ -47,12 +52,22 @@ export  function ExchangeCreate() {
     }
   },[baseCurrency])
 
+
   useEffect(() => {
     if(targetCurrency) {
       setValue("target_currency", targetCurrency.id)
       clearErrors("target_currency")
     }
   },[targetCurrency])
+
+  const base_amount = useWatch({ control, name: "base_amount" });
+  const target_amount = useWatch({ control, name: "target_amount" });
+
+  useEffect(() => {
+    if (base_amount && target_amount) {
+      setRate((target_amount / base_amount).toFixed(3));
+    }
+  }, [base_amount, target_amount]);
 
   
   return (
@@ -83,12 +98,12 @@ export  function ExchangeCreate() {
             </span>
             <input 
             type="number"
-            min={0.000001}
-            step={0.000001}
+            min={0}
+            step={0.1}
             className="rounded-none rounded-e-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             {...register("base_amount", 
               {
-                min: {value: 0.000001, message: "el valor debe ser postivo"},
+                min: {value: 0, message: "el valor debe ser postivo"},
                 max: {value: 999999999999, message: "el valor es demasiado alto"},
                 required: "Proporciona un monto para la moneda base",
               }
@@ -117,12 +132,12 @@ export  function ExchangeCreate() {
             </span>
             <input 
             type="number"
-            min={0.000001}
-            step={0.000001}
+            min={0}
+            step={0.1}
             className="rounded-none rounded-e-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             {...register("target_amount", 
               {
-                min: {value: 0.000001, message: "el valor debe ser postivo"},
+                min: {value: 0, message: "el valor debe ser postivo"},
                 max: {value: 999999999999, message: "el valor es demasiado alto"},
                 required: "Proporciona un monto para la moneda de destino",
               }
@@ -149,6 +164,17 @@ export  function ExchangeCreate() {
             }
           )}
         />
+
+
+     
+        <div >
+          <p >Tipo de Cambio </p>
+            <p className="text-sm font-light"> este campo es calculado automáticamente</p> 
+          <div
+            className="min-h-11 rounded-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >{rate}</div>
+        </div>
+
         
         <CardFooter extraClass="justify-end">
           <PrimaryButton

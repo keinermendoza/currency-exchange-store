@@ -44,9 +44,18 @@ export const CurrencyProvider = ({ children }) => {
   const removeCurrency = (id) => {
     setCurrencies(prevCurrencies => prevCurrencies.filter(currency => currency.id != id));
   };
+  
+
+  const updateCurrency = (id, newValue) => {
+    setCurrencies(prevCurrencies =>
+      prevCurrencies.map(currency =>
+        currency .id == id ? newValue : currency 
+      )
+    );
+  };
 
   return (
-    <CurrencyContext.Provider value={{ currencies, getCurrency, addCurrency, removeCurrency }}>
+    <CurrencyContext.Provider value={{ currencies, getCurrency, addCurrency, removeCurrency, updateCurrency }}>
       {children}
     </CurrencyContext.Provider>
   );

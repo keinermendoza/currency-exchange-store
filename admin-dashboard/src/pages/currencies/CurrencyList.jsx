@@ -18,6 +18,8 @@ export function CurrencyList() {
                 </NavLink>
             </div>
             <div className='mt-4 grid grid-cols-[repeat(auto-fit,minmax(16rem,1fr))] gap-4'>
+            {currencies.length === 0 && <p className="max-w-md">Preciona el boton <b>Registrar Moneda</b> para registrar tu primera moneda</p>}
+
             {currencies?.map(currency => (
                 <CardAction 
                     key={currency.id}

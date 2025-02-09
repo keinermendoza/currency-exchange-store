@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useParams, NavLink, useNavigate } from "react-router";
 import { useForm, Controller } from "react-hook-form";
 import { useCurrency } from "../../contexts/CurrencyContext";
+import { useExchangerate } from "../../contexts/ExchangerateContext";
 import { fetchPostForm } from "../../services/fetchPost";
 import { CardAction, CardFooter, PrimaryButton } from "../../components/ui";
 import {ImageField, inputTextStyle} from "../../components/forms";
@@ -13,7 +14,8 @@ import {displayResponseMessages} from "../../lib/utils";
 export  function CurrencyDetail() {
   let { id } = useParams();
   const navigate = useNavigate();
-  const {getCurrency, removeCurrency} = useCurrency();
+  const {getCurrency, removeCurrency, updateCurrency} = useCurrency();
+  const {refetchExchangerates} =  useExchangerate()
   const currency = getCurrency(id)
   const endpoint = "currencies/" + id;
   
@@ -29,6 +31,7 @@ export  function CurrencyDetail() {
 
     if (!response.errors) {
       navigate("../");
+      updateCurrency(id, response.data)
     }
 
   }
@@ -39,6 +42,7 @@ export  function CurrencyDetail() {
       
       if (!response.errors) {
         removeCurrency(id);
+        refetchExchangerates();
         navigate("../");
       }
     }

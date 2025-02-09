@@ -52,7 +52,7 @@ export const ExchangerateProvider = ({ children }) => {
 
   // Remover un tipo de cambio  de la colección por ID
   const removeExchangerate = (id) => {
-    setExchangerates(prevExchangerates => prevExchangerates.filter(Exchangerate => Exchangerate.id !== id));
+    setExchangerates(prevExchangerates => prevExchangerates.filter(Exchangerate => Exchangerate.id != id));
   };
 
   const updateExchangerate = (id, newValue) => {
