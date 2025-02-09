@@ -16,8 +16,8 @@ php -S localhost:8888 -t public
 - [x] pasar containerToast para el baselayout
 - [x] crear context para almacenar el valor de currencies
 - [x] crear context para almacenar el valor de exchages
-- [ ] extraer logica de renderizado de errores usando funcion displayResponseMessages y usando fetchPost y fetchPostForm
-- [ ] pasar logica de calculo de rate a la views de exchagerate
+- [x] extraer logica de renderizado de errores usando funcion displayResponseMessages y usando fetchPost y fetchPostForm
+- [x] pasar logica de calculo de rate a la views de exchagerate
 - [ ] crear tabla en base de datos para almacenar publicaiones
 - [ ] crear api source para manejar publicaciones
 - [ ] crear react views para manejar publicaciones

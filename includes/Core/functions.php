@@ -77,7 +77,7 @@ function getViteAssets(string $entryName): array {
 
 function handleUploadImage(
     string $field_name, 
-    \Http\Validator\Validator $validator,
+    $validator,
     string $error_message = "No fue posible adicionar la imagen"
 ) : bool | string {
     

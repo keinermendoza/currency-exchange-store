@@ -35,8 +35,15 @@ $router->get("/admin[*]", "admin.php", permission: ADMIN);
 $router->get("/api/currencies", "api/currencies/index.php", permission: ADMIN);
 $router->post("/api/currencies", "api/currencies/store.php", permission: ADMIN);
 $router->get("/api/currencies/[i:id]", "api/currencies/show.php", permission: ADMIN);
-$router->put("/api/currencies/[i:id]", "api/currencies/update.php", permission: ADMIN);
+$router->put("/api/currencies/[i:id]", "api/currencies/update.php");
 $router->delete("/api/currencies/[i:id]", "api/currencies/destroy.php", permission: ADMIN);
+
+// posts
+$router->get("/api/posts", "api/posts/index.php");
+$router->post("/api/posts", "api/posts/store.php");
+$router->get("/api/posts/[i:id]", "api/posts/show.php", permission: ADMIN);
+$router->put("/api/posts/[i:id]", "api/posts/update.php");
+$router->delete("/api/posts/[i:id]", "api/posts/destroy.php", permission: ADMIN);
 
 // exchangerates
 $router->get("/api/exchangerates", "api/exchangerates/index.php", permission: ADMIN);

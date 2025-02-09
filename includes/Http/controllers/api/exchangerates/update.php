@@ -32,12 +32,12 @@ if(!$validator->validate()) {
     exit();
 }
 
-$rate = bcdiv($data["target_amount"], $data["base_amount"], 6);
+// $rate = bcdiv($data["target_amount"], $data["base_amount"], 6);
 
 $db->query("UPDATE exchangerate SET base_amount = :base_amount, target_amount = :target_amount, rate = :rate WHERE id = :id", [
     "base_amount" => $data["base_amount"],
     "target_amount" => $data["target_amount"],
-    "rate" => $rate,
+    "rate" => $data["rate"],
     "id" => $id
 ]);
 

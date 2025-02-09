@@ -25,7 +25,7 @@ if ($data["base_currency"] === $data["target_currency"]) {
     exit();
 }
 
-$rate = bcdiv($data["target_amount"], $data["base_amount"], 6);
+// $rate = bcdiv($data["target_amount"], $data["base_amount"], 6);
 
 $db = App::resolve(Database::class);
 
@@ -33,7 +33,7 @@ $is_default = !$db->query("SELECT * FROM exchangerate LIMIT 1")->fetch();
 
 try {
     $db->query("INSERT INTO exchangerate(rate, base_currency_id, target_currency_id, base_amount, target_amount, is_default) VALUES(:rate, :base_currency, :target_currency, :base_amount, :target_amount, :is_default)", [
-        "rate" => $rate,
+        "rate" => $data["rate"],
         "base_currency" => $data["base_currency"],
         "target_currency" => $data["target_currency"],
         "base_amount" => $data["base_amount"],
