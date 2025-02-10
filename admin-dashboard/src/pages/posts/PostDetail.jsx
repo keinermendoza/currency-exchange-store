@@ -1,153 +1,239 @@
-// import { useEffect } from "react";
-// import { useParams, NavLink, useNavigate } from "react-router";
-// import { useForm, Controller } from "react-hook-form";
-// import { useCurrency } from "../../contexts/CurrencyContext";
-// import { useExchangerate } from "../../contexts/ExchangerateContext";
-// import { fetchPostForm } from "../../services/fetchPost";
-// import { CardAction, CardFooter, PrimaryButton } from "../../components/ui";
-// import {ImageField, inputTextStyle} from "../../components/forms";
-// import {ModalDelete} from "../../components/ModalDelete";
-// import { fetchPost } from "../../services/fetchPost";
-// import { ComeBackLink } from "../../components/ComeBackLink";
-// import {displayResponseMessages} from "../../lib/utils";
+import { useEffect } from "react";
+import { useParams, NavLink, useNavigate } from "react-router";
+import { useForm, Controller } from "react-hook-form";
+import { usePost } from "../../contexts/PostContext";
+import { fetchPostForm } from "../../services/fetchPost";
+import { CardAction, CardFooter, PrimaryButton } from "../../components/ui";
+import {ImageField, inputTextStyle} from "../../components/forms";
+import {ModalDelete} from "../../components/ModalDelete";
+import { fetchPost } from "../../services/fetchPost";
+import { ComeBackLink } from "../../components/ComeBackLink";
+import {displayResponseMessages} from "../../lib/utils";
 
 export  function PostDetail() {
-  return <p>PostDetail worwing..</p>
-}
-//   let { id } = useParams();
-//   const navigate = useNavigate();
-//   const {getCurrency, removeCurrency, updateCurrency} = useCurrency();
-//   const {refetchExchangerates} =  useExchangerate()
-//   const currency = getCurrency(id)
-//   const endpoint = "currencies/" + id;
+  let { id } = useParams();
+  const endpoint = "posts/" + id;
+  const navigate = useNavigate();
+  const {getPost, removePost, updatePost} = usePost();
+  const post = getPost(id)
   
-//   const { register, handleSubmit, setValue, setError, control, formState: { errors, isSubmitting } } = useForm();
+  const { register, handleSubmit, setValue, setError, watch, control, formState: { errors, isSubmitting } } = useForm();
   
-//   const onSubmit = async (data) => {
-//     const newData = {...data, "_method":"PUT"}
-//     const formData = new FormData();
-//     Object.entries(newData).forEach(([key, value]) => formData.append(key, value));
-//     const response = await fetchPostForm(endpoint, formData);
+  const onSubmit = async (data) => {
+    console.log(data)
 
-//     displayResponseMessages(response, data, setError);
+    const newData = {...data, "_method":"PUT"}
+    const formData = new FormData();
+    Object.entries(newData).forEach(
+      ([key, value]) => {
+        if (value !== null && value !== undefined && value !== "") {
+          formData.append(key, value)
+        }
+      }
+    );
+    const response = await fetchPostForm(endpoint, formData);
 
-//     if (!response.errors) {
-//       navigate("../");
-//       updateCurrency(id, response.data)
-//     }
+    displayResponseMessages(response, data, setError);
 
-//   }
+    if (!response.errors) {
+      navigate("../");
+      updatePost(id, response.data)
+    }
 
-//   const deleteCurrency = async () => {
-//       const response = await fetchPost(endpoint, null, "DELETE");
-//       displayResponseMessages(response, {}, setError);
+  }
+
+  const deletePost = async () => {
+      const response = await fetchPost(endpoint, null, "DELETE");
+      displayResponseMessages(response, {}, setError);
       
-//       if (!response.errors) {
-//         removeCurrency(id);
-//         refetchExchangerates();
-//         navigate("../");
-//       }
-//     }
+      if (!response.errors) {
+        removePost(id);
+        navigate("../");
+      }
+    }
 
-//   // update fields when data is loaded  
-//   useEffect(() => {
-//     if (currency) {
-//       setValue( "name", currency.name); 
-//       setValue( "symbol", currency.symbol);
-//     }
-//   }, [currency]);
+  // update fields when data is loaded  
+useEffect(() => {
+  console.log(post)
+  if (post) {
+    setValue("title", post.title || ""); 
+    setValue("excerpt", post.excerpt == "null" ? "" : post.excerpt); 
+    setValue("body", post.body == "null" ? "" : post.body);
+    setValue("show_in_home",  post.show_in_home ?? 0); 
+  }
+}, [post, setValue]);
+
+const showInHome = watch("show_in_home");
+  return (
+    <section>
+      <ComeBackLink />
+
+       <h1 className="text-3xl font-medium">Editando Publicación: <b>{post?.title}</b></h1>
+
+      <form className="max-w-sm" onSubmit={handleSubmit(onSubmit)} >
+       <CardAction extraClass="gap-4">
+       <Input 
+        name="title"
+        register={register}
+        errors={errors}
+        label="Titulo"
+
+          placeholder="Mi Publicación"
+
+          required={{value: "Proporciona un titulo"}}
+          maxLength={{value:50, message: "el titulo debe tener maximo 50 letras"}}
+          minLength={{value:3, message: "el titulo debe tener minimo 3 letras"}}
+       />
+
+      <Controller
+        control={control}
+        name={"image"}
+        render={({ field: { value, onChange, ...field } }) => { 
+          return (
+            <ImageField
+              {...field}
+              ImageClassName="w-full object-cover h-60"
+              value={value?.fileName}
+              initialImage={post?.image} 
+              onChange={(event) => {
+                onChange(event.target.files[0]);
+              }
+            }
+            />
+          );
+        }}
+      />
 
 
-//   return (
-//     <section>
-//       <ComeBackLink />
+      <Textarea 
+        name="excerpt"
+        register={register}
+        errors={errors}
+        label="Resumen"
+        placeholder="Esta publicación se trata sobre ..."
+       />
 
-//       <p>
-//         <NavLink to="../">Volver</NavLink>
-//       </p>
-//       <h1 className="text-3xl font-medium">Editando Moneda {currency?.name}</h1>
 
-//       <form className="max-w-sm" onSubmit={handleSubmit(onSubmit)} >
-//       <CardAction extraClass="gap-4">
-//         <div>
-//           <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre de la Moneda</label>
-//           {errors.name && <p className="text-red-800 font-medium">{errors.name.message}</p>}
-//           <input 
-//           placeholder="Real" 
-//           className={inputTextStyle}
-//           {...register("name", 
-//           {
-//             required: {value: "Proporciona un nombre"},
-//             maxLength: {value:50, message: "el nombre debe tener maximo 50 letras"},
-//             minLength: {value:3, message: "el nombre debe tener minimo 3 letras"},
-//           }
-//           )}
-//           />
-//         </div>
+      <Textarea 
+        name="body"
+        register={register}
+        errors={errors}
+        label="Contenido"
+        rows="8"
+        placeholder="El tema que hoy trataremos es muy importante..."
+       />
 
-//         <div>
-//           <label htmlFor="symbol" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Simbolo</label>
-//           {errors.symbol && <p className="text-red-800 font-medium">{errors.symbol.message}</p>}
-//           <input 
-//           placeholder="R$" 
-//           className={inputTextStyle}
-//           {...register("symbol", 
-//             {
-//               required: "Proporciona un simbolo",
-//               maxLength: {value:5, message: "el simbolo debe tener maximo 8 letras"},
-//             }
-//           )}
-//           />
-//         </div>
-
-     
-//         {/* https://claritydev.net/blog/react-hook-form-multipart-form-data-file-uploads */}
-//         {/* https://react-hook-form.com/docs/usecontroller/controller */}
-
-//           <Controller
-//             control={control}
-//             name={"image"}
-//             // rules={{ required: "Recipe picture is required" }}
-//             render={({ field: { value, onChange, ...field } }) => { // this line makes the magic
-//               return (
-//                 <ImageField
-//                   {...field}
-//                   value={value?.fileName}
-//                   initialImage={currency?.image} 
-//                   onChange={(event) => {
-//                     onChange(event.target.files[0]);
-//                   }
-//                 }
-//                 />
-//               );
-//             }}
-//           />
-
-//         <CardFooter extraClass="justify-end">
-//           <PrimaryButton
-//             isDisabled={isSubmitting}
+      <div className="flex flex-col gap-2" >
+          <p className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Visibilidad</p>
+          <Radio 
+            required
+            register={register}
+            checked={showInHome == 1}
+            value="1"
+            name="show_in_home"
+            label="Mostar en página principal"
+          />
+          <Radio 
           
-//           >Guardar Cambios</PrimaryButton>
-//         </CardFooter>
-//       </CardAction>  
-//       </form>
+          required 
+          register={register} 
+          checked={showInHome == 0}
 
-//       <div className="mt-12 w-full max-w-4xl flex flex-col sm:flex-row gap-4 justify-between items-center">
-//         <div className="w-full max-w-lg">
-//           <p className="text-lg mb-2">Eliminar Moneda</p>
-//           <p>Al eliminar esta moneda también se eliminará cualquier <b>Tipo de Cambio</b> en el que estés usando esta moneda</p>
-//         </div>
+          value="0"
+          name="show_in_home"
+          label='Mostrar solo en página de publicaciones'
+          />
 
-//         <ModalDelete 
-//             isDisabled={isSubmitting}
+        </div>
 
-//         deleteButtonText="Eliminar Moneda"
-//         deleteCallback={deleteCurrency}>
-//           <h3 className="mb-2 text-lg text-gray-500 dark:text-gray-400">Estás seguro de que quieres eliminar esta Moneda?</h3>
-//           <p className="mb-5 text-left  text-sm px-2">Recuerda que al eliminar esta moneda tambien se eliminarán todos los <b>Tipos de Cambio</b> en la que esta aparezca.</p>
-//         </ModalDelete>
-//       </div>
 
-//     </section>
-//   )
-// }
+         <CardFooter extraClass="justify-end">
+           <PrimaryButton
+             isDisabled={isSubmitting}
+          
+           >Guardar Cambios</PrimaryButton>
+         </CardFooter>
+
+         </CardAction>
+       </form> 
+
+
+       
+       <div className="mt-12 w-full max-w-4xl flex flex-col sm:flex-row gap-4 justify-between items-center">
+         <div className="w-full max-w-lg">
+           <p className="text-lg mb-2">Eliminar Publicación</p>
+           <p>Esta acción no puede ser revertida</p>
+         </div>
+
+         <ModalDelete 
+             isDisabled={isSubmitting}
+
+         deleteButtonText="Eliminar Publicación"
+         deleteCallback={deletePost}>
+           <h3 className="mb-2 text-lg text-gray-500 dark:text-gray-400">Estás seguro de que quieres eliminar esta Publicación?</h3>
+         </ModalDelete>
+       </div>
+
+    </section>
+  )
+}
+
+
+export function Input({register, name, label, errors, placeholder="", ...rest}) {
+  return (
+
+  <div>
+  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor={name}>{label}</label>
+  {errors[name] && <p className="text-red-800 font-medium">{errors[name].message}</p>}
+  <input 
+  id={name}
+  placeholder={placeholder} 
+  className={inputTextStyle}
+  {...register(name, {...rest})}  
+  />
+</div>
+  )
+
+}
+
+export function Textarea({register, name, label, errors, placeholder="", rows="3", ...rest}) {
+  return (
+    <div>
+      <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor={name}>{label}</label>
+      {errors[name] && <p className="text-red-800 font-medium">{errors[name].message}</p>}
+      <textarea 
+        cols="30" 
+        rows={rows}
+        id={name}
+        placeholder={placeholder} 
+        className={inputTextStyle}
+        {...register(name, {...rest})}  
+        ></textarea>
+    </div>
+  )
+
+}
+
+
+export function Radio({ label, labelClassName = "", value, register, name, ...rest }) {
+  const sufix = Math.random();
+  const randomId = name + sufix; 
+  return (
+    <div className="flex items-center" >
+      <input
+      value={value}
+
+      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
+      id={randomId} 
+      type="radio" 
+      {...register(name)} 
+      {...rest}  />
+      <label
+      className="ms-4 text-sm font-medium text-gray-900 dark:text-gray-300" 
+      htmlFor={randomId} >{label}</label>
+    </div>
+  );
+}
+
+
+

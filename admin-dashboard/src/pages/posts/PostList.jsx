@@ -6,7 +6,6 @@ import { primaryButtonStyle } from "../../components/forms";
 export function PostList() {
     const navigate = useNavigate();
     const {posts} = usePost();
-    console.log(posts)
 
     const imageCss = "size-36 bg-gray-500 mb-3 rounded-full shadow-lg";
     return (

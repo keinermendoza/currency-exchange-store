@@ -131,7 +131,6 @@ export  function ExchangeDetail() {
                     </div>
                     <input 
                     type="number" step="0.1"
-                    // type="text" inputmode="numeric" pattern="\d*" 
 
                     
                     className="rounded-none rounded-e-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -164,7 +163,6 @@ export  function ExchangeDetail() {
                     </div>
                     <input 
                     type="number" step="0.1"
-                    // type="text" inputmode="numeric" pattern="\d*" 
                     className="rounded-none rounded-e-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     {...register("target_amount", 
                       {

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { inputTextStyle } from './inputStyles';
-export function ImageField ({initialImage, name, onChange, textLabel="Imagen" }) {
+export function ImageField ({initialImage, name, onChange, textLabel="Imagen", ImageClassName="" }) {
   const [imageUrl, setImageUrl] = useState(initialImage); // URL inicial de la imagen
   const hiddenInputRef = useRef();
 
@@ -24,11 +24,11 @@ export function ImageField ({initialImage, name, onChange, textLabel="Imagen" })
       {/* Mostrar la imagen solo si hay una URL */}
       <span className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{textLabel}</span>
 
-      {imageUrl && (
+      {(imageUrl || initialImage) && (
         <img
-          src={imageUrl}
+          src={imageUrl || initialImage}
           alt="Selected"
-          className="w-32 h-32 object-cover rounded-lg mb-3 shadow"
+          className={"w-32 h-32 object-cover rounded-lg mb-3 shadow " + ImageClassName}
         />
       )}
 
