@@ -14,6 +14,8 @@ import DashboardLayout from './layouts/DashboardLayout';
 
 import { CurrencyList, CurrencyCreate, CurrencyDetail } from './pages/currencies';
 import { ExchangeList, ExchangeCreate, ExchangeDetail } from './pages/exchanges';
+import { PostList, PostCreate, PostDetail } from './pages/posts';
+
 import { Info } from './pages/info/Info';
 import { Social } from './pages/social/Social';
 
@@ -49,6 +51,12 @@ function App() {
             <Route index element={<ExchangeList />} />
             <Route path="registrar" element={<ExchangeCreate />} />
             <Route path=":id" element={<ExchangeDetail />} />
+          </Route>
+
+          <Route path="publicaciones">
+            <Route index element={<PostList />} />
+            <Route path="registrar" element={<PostCreate />} />
+            <Route path=":id" element={<PostDetail />} />
           </Route>
 
           <Route path="info" element={<Info />} />

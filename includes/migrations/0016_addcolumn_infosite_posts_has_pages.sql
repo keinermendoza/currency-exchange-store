@@ -1,0 +1,2 @@
+-- falta por corrermigracion datetime.datetime(2025, 2, 9, 20, 35, 20, 811314)
+-- ALTER TABLE info_site ADD COLUMN posts_has_pages TINYINT(1) DEFAULT 0;

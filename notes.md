@@ -18,8 +18,8 @@ php -S localhost:8888 -t public
 - [x] crear context para almacenar el valor de exchages
 - [x] extraer logica de renderizado de errores usando funcion displayResponseMessages y usando fetchPost y fetchPostForm
 - [x] pasar logica de calculo de rate a la views de exchagerate
-- [ ] crear tabla en base de datos para almacenar publicaiones
-- [ ] crear api source para manejar publicaciones
+- [x] crear tabla en base de datos para almacenar publicaiones
+- [x] crear api source para manejar publicaciones
 - [ ] crear react views para manejar publicaciones
 - [ ] crear php partial view para renderizar seccion de publicaciones
 - [ ] crear php full view para renderizar detailPage para publicaciones

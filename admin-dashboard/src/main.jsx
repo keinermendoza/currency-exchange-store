@@ -4,6 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import ThemeProvider from './utils/ThemeContext';
 import {CurrencyProvider} from "./contexts/CurrencyContext";
 import {ExchangerateProvider} from "./contexts/ExchangerateContext";
+import {PostProvider} from "./contexts/PostContext";
 
 import './css/style.css';
 
@@ -17,7 +18,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Suspense fallback={<Loading />}>
             <CurrencyProvider>
               <ExchangerateProvider>
-                <App />
+                <PostProvider>
+                  <App />
+                </PostProvider>
               </ExchangerateProvider>
             </CurrencyProvider>
           </Suspense>

@@ -8,18 +8,18 @@ header('Content-Type: application/json');
 $id = $params["id"];
 
 $db = App::resolve(Database::class);
-$currency = $db->query("SELECT * FROM currency WHERE id = :id", [
+$post = $db->query("SELECT * FROM posts WHERE id = :id", [
     "id" => $id
 ])->fetch();
 
-if(!$currency) {
+if(!$post) {
     http_response_code(404);
     echo json_encode(["errors" => "Moneda no encontrada"]);
     exit();
 }
 
-if(isset($currency["image"])) $currency["image"] = "/".$currency["image"];
+if(isset($post["image"])) $post["image"] = "/".$post["image"];
 
 http_response_code(200);
-echo json_encode($currency);
+echo json_encode($post);
 exit();

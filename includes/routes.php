@@ -41,9 +41,9 @@ $router->delete("/api/currencies/[i:id]", "api/currencies/destroy.php", permissi
 // posts
 $router->get("/api/posts", "api/posts/index.php");
 $router->post("/api/posts", "api/posts/store.php");
-$router->get("/api/posts/[i:id]", "api/posts/show.php", permission: ADMIN);
+$router->get("/api/posts/[i:id]", "api/posts/show.php");
 $router->put("/api/posts/[i:id]", "api/posts/update.php");
-$router->delete("/api/posts/[i:id]", "api/posts/destroy.php", permission: ADMIN);
+$router->delete("/api/posts/[i:id]", "api/posts/destroy.php");
 
 // exchangerates
 $router->get("/api/exchangerates", "api/exchangerates/index.php", permission: ADMIN);
