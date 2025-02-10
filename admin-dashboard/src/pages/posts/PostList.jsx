@@ -11,13 +11,13 @@ export function PostList() {
     return (
         <section>
 
-            <div className="flex flex-col items-center justify-start sm:flex-row sm:justify-between gap-4">
+            <div className="mb-10 flex flex-col items-center justify-start sm:flex-row sm:justify-between gap-4">
                 <h1 className='text-3xl font-medium'>Publicaciones</h1>
                 <NavLink to={'./registrar'} className={primaryButtonStyle}>
                     Registrar Publicación
                 </NavLink>
             </div>
-            <div className='mt-4 grid grid-cols-[repeat(auto-fit,minmax(16rem,1fr))] gap-4'>
+            <div className='grid grid-cols-[repeat(auto-fit,minmax(16rem,1fr))] gap-4'>
             {posts.length === 0 && <p className="max-w-md">Preciona el boton <b>Registrar Publicación</b> para comenzar a mostrar publicaciones en tu sitio web</p>}
 
             {posts?.map(post => (

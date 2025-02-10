@@ -12,13 +12,13 @@ export function ExchangeList() {
 
     return (
         <section>
-            <div className="flex flex-col items-center justify-start sm:flex-row sm:justify-between gap-4">
+            <div className="mb-10 flex flex-col items-center justify-start sm:flex-row sm:justify-between gap-4">
                 <h1 className='text-3xl font-medium'>Tipos de Cambio</h1>
                 <NavLink to={'registrar'} className={primaryButtonStyle}>
                     Nuevo Cambio entre Monedas
                 </NavLink>
             </div>
-            <div className='mt-4 flex flex-wrap justify-start gap-4'>
+            <div className='flex flex-wrap justify-start gap-4'>
             {exchangerates.length === 0 && <p className="max-w-md">Preciona el boton <b>Nuevo Cambio entre Monedas</b> para comenzar a ofrecer cambios en tu sitio web.</p>}
             {exchangerates?.map(exchangerate => (
                 <CardAction 

@@ -33,7 +33,7 @@ export function CurrencyCreate() {
     <section>
       <ComeBackLink />
 
-      <h1 className="text-3xl font-medium">Registrar Moneda</h1>
+      <h1 className="mb-10 text-3xl font-medium">Registrar Moneda</h1>
 
       <form className="max-w-sm" onSubmit={handleSubmit(onSubmit)} >
       <CardAction extraClass="gap-4">

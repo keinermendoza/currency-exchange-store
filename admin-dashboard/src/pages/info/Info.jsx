@@ -7,7 +7,7 @@ import { displayResponseMessages } from "../../lib/utils";
 
 export function Info() {
 const endpoint = "infosite";
-const {data:siteInfo, error} = useFetchGet(endpoint);
+const {data:siteInfo} = useFetchGet(endpoint);
 const { register, handleSubmit, setValue, setError, formState: { errors, isSubmitting } } = useForm();
 
 useEffect(() => {
@@ -30,7 +30,6 @@ const onSubmit = async (data) => {
   const response = await fetchPost(endpoint, data, method);
   displayResponseMessages(response, data, setError);
 }
-
 
 return (
   <div>
