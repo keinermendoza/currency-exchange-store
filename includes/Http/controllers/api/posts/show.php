@@ -18,7 +18,9 @@ if(!$post) {
     exit();
 }
 
-if(isset($post["image"])) $post["image"] = "/".$post["image"];
+// if (!empty($post["image"]) && $post["image"] !== "null") {
+//     $post["image"] = "/" . $post["image"];
+// }
 
 http_response_code(200);
 echo json_encode($post);

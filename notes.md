@@ -1,6 +1,6 @@
 ## Para correr el servidor de desarrollo
 php -S localhost:8888 -t public
-
+composer dump-autoload
 ### TODO
 - [x] hacer nulos todos los campos de la tabla info_site
 - [x] agregar validacion condicional las rutas infosite/store y infosite/update

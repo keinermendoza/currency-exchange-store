@@ -1,5 +1,5 @@
 <?php
-$password = "1234";
+$password = "";
 echo password_hash($password, PASSWORD_BCRYPT);
 ?>
 

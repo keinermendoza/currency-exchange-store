@@ -47,9 +47,14 @@ $newData = [
 try {
     $db->query("UPDATE currency SET name = :name, symbol = :symbol, image = :image WHERE id = :id", $newData);
 
-    if ($filename) {
-        $newData["image"] = "/".$newData["image"];
+
+    if (isset($newData["image"])) {
+        $newData["image"] = "/" . $newData["image"];
     }
+
+    // if ($filename) {
+    //     $newData["image"] = "/".$newData["image"];
+    // }
     
     echo json_encode([
         "message" => "Moneda actualizada con exito!",

@@ -1,0 +1,18 @@
+{
+    "name": "keiner/casa-cambio",
+    "authors": [
+        {
+            "name": "keiner",
+            "email": "keinermendoza@gmail.com"
+        }
+    ],
+    "require": {
+        "twig/twig": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Http\\": "includes/Http/",
+            "Core\\": "includes/Core/"
+        }
+    }
+}

@@ -56,7 +56,10 @@ try {
         "id" => $id
     ])->fetch();
 
-    $post["image"] = "/".$post["image"];
+    if (isset($post["image"])) {
+        $post["image"] = "/".$post["image"];
+    }
+
 
     http_response_code(201);
     echo json_encode([

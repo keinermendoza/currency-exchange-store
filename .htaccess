@@ -1,8 +1,24 @@
-# Asegúrate de que el motor de reescritura está habilitado
 RewriteEngine On
 
-# Redirigir todas las solicitudes a /public/index.php
+# Devolver 404 para los directorios específicos
+RewriteCond %{REQUEST_URI} ^/(\.git|admin-dashboard|includes|src)/ [NC]
+RewriteRule ^(.*)$ - [R=404,L]
+
+# Devolver 404 para los archivos específicos con sus nombres exactos
+RewriteCond %{REQUEST_URI} ^/(?:\.gitignore|\.Http|notes\.md|package\.json|package-lock\.json|tailwind\.config\.js)$ [NC]
+RewriteRule ^(.*)$ - [R=404,L]
+
+# Primero, asegúrate de que las rutas dentro de /static se sirvan correctamente
+RewriteCond %{REQUEST_URI} ^/static/
+RewriteCond %{DOCUMENT_ROOT}/public%{REQUEST_URI} -f [OR]
+RewriteCond %{DOCUMENT_ROOT}/public%{REQUEST_URI} -d
+RewriteRule ^static/(.*)$ /public/static/$1 [L,QSA]
+
+# Si la solicitud no es un archivo o directorio real, redirigir a public/index.php
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ /public/index.php [L,QSA]
-DirectoryIndex public/index.php # # prod .htaccess
+
+# Definir el archivo de índice
+DirectoryIndex public/index.php
+

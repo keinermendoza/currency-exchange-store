@@ -8,7 +8,7 @@ CREATE TABLE exchangerate (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,  -- Fecha de actualización
     is_default TINYINT(1) DEFAULT 0,
     base_amount DECIMAL(10,6) NOT NULL DEFAULT 0,
-    target_amount DECIMAL(10,6) NOT NULL DEFAULT 0
+    target_amount DECIMAL(10,6) NOT NULL DEFAULT 0,
 
     -- Restricciones y claves foráneas
     FOREIGN KEY (base_currency_id) REFERENCES currency(id) ON DELETE CASCADE,
